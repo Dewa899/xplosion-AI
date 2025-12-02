@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Simulation & Modeling of Explosion Effects (TNT Equivalence)</title>
+
+		<link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+		<link rel="canonical" href="https://virdanurlulu.github.io/" />
+		<link
+			rel="preconnect"
+			href="https://raw.githubusercontent.com"
+			crossorigin
+		/>
+		<link rel="dns-prefetch" href="https://raw.githubusercontent.com" />
+		<link rel="preload" as="image" href="/img/banner-itb1.webp" />
+
+		<meta
+			name="description"
+			content="Interactive Simulation and Modeling of Explosion Effects Based on TNT Equivalence Using JavaScript: Incorporating Chemical Material Properties, Consequence Estimation, Pa–Ze Relationship, Overpressure–Distance Chart, and Visualization of Explosion Overpressure Contours."
+		/>
+		<meta name="author" content="Virda Nur Lu'lu" />
+		<meta name="robots" content="index,follow" />
+		<meta name="theme-color" content="#0079c2" />
+		<meta name="color-scheme" content="light dark" />
+
+		<meta property="og:type" content="website" />
+		<meta
+			property="og:site_name"
+			content="Master’s Program in Chemical Engineering, Bandung Institute of Technology"
+		/>
+		<meta
+			property="og:title"
+			content="Simulation and Modeling of Explosion Effects Based on TNT Equivalence using Javascript"
+		/>
+		<meta
+			property="og:description"
+			content="Interactive Simulation and Modeling of Explosion Effects Based on TNT Equivalence Using JavaScript: Incorporating Chemical Material Properties, Consequence Estimation, Pa–Ze Relationship, Overpressure–Distance Chart, and Visualization of Explosion Overpressure Contours."
+		/>
+		<meta property="og:url" content="https://xplosion.vercel.app/" />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:image:type" content="image/webp" />
+		<meta
+			property="og:image"
+			content="https://pjnbshyobrpkkbkoxnqk.supabase.co/storage/v1/object/public/img/ITB-Exlosion-Modeling-Simulation.webp"
+		/>
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta
+			name="twitter:title"
+			content="Simulation and Modeling of Explosion Effects Based on TNT Equivalence using Javascript"
+		/>
+		<meta
+			name="twitter:description"
+			content="Interactive Simulation and Modeling of Explosion Effects Based on TNT Equivalence Using JavaScript: Incorporating Chemical Material Properties, Consequence Estimation, Pa–Ze Relationship, Overpressure–Distance Chart, and Visualization of Explosion Overpressure Contours."
+		/>
+		<meta
+			name="twitter:image"
+			content="https://pjnbshyobrpkkbkoxnqk.supabase.co/storage/v1/object/public/img/ITB-Exlosion-Modeling-Simulation.webp"
+		/>
+
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "WebApplication",
+				"name": "Explosion Effects Simulation & Modeling (TNT Equivalence)",
+				"applicationCategory": "EducationalApplication",
+				"operatingSystem": "Web",
+				"url": "https://virdanurlulu.github.io/",
+				"image": "/img/ITB-Exlosion-Modeling-Simulation.webp",
+				"author": {
+					"@type": "Person",
+					"name": "Virda Nur Lu'lu",
+					"sameAs": ["https://id.linkedin.com/in/virdanurlulu"]
+				},
+				"inLanguage": "en",
+				"description": "Interactive Simulation and Modeling of Explosion Effects Based on TNT Equivalence Using JavaScript: Incorporating Chemical Material Properties, Consequence Estimation, Pa–Ze Relationship, Overpressure–Distance Chart, and Visualization of Explosion Overpressure Contours.",
+				"publisher": {
+					"@type": "Organization",
+					"name": "Bandung Institute of Technology",
+					"url": "https://che.itb.ac.id/"
+				}
+			}
+		</script>
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"
+			defer
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+			defer
+		></script>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+		/>
+		<link rel="stylesheet" href="/css/style-main.css" />
+	</head>
+	<body class="theme-itb full">
+		<div class="wrap">
+			<div class="banner title">
+				<div class="brandbar">
+					<a
+						href="https://virdanurlulu.github.io/"
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Visit homepage"
+					>
+						<img
+							id="itbLogo"
+							class="brand-logo"
+							alt="Logo ITB"
+							width="96"
+							height="96"
+						/>
+					</a>
+					<div class="brand-text">
+						<h1 data-lang-key="app_title">
+							Simulation and Modeling of Explosion Effects Based on TNT
+							Equivalence <span class="nowrap">using Javascript</span>
+						</h1>
+						<h2>
+							<span class="sub-line1" data-lang-key="app_subtitle1"
+								>Chemical Engineering,
+							</span>
+							<span class="sub-line2" data-lang-key="app_subtitle2"
+								>Bandung Institute of Technology</span
+							>
+						</h2>
+						<h2 class="authors">
+							Virda Nur Lu’lu, S.T., IPP<br />Dr. Eng. Ir. Pramujo Widiatmoko,
+							S.T., M.T.<br />Ir. Hary Devianto, S.T., M.Eng., Ph.D., IPM, AER.*
+						</h2>
+					</div>
+				</div>
+				<div id="menu-placeholder"></div>
+				<!-- 
+      <div class="dropdown-menu">
+        <button class="dropdown-toggle"><span data-lang-key="menu_button">Menu</span><span class="hamburger-icon">&#9776;</span></button>
+        <div class="dropdown-content">
+          <a href="/" data-lang-key="menu_home">Home</a>
+          <a href="/" data-lang-key="menu_app">Simulation & Modeling Software</a>
+          <a href="/html/flow-process.html" data-lang-key="menu_guide">Workflow Process of Simulation</a>
+          
+          <div class="submenu-container">
+            <a href="#" class="submenu-toggle" data-lang-key="menu_case_study">ACADEMIC CASE STUDY <span class="submenu-arrow">&#9656;</span></a>
+            <div class="submenu-content">
+              <a href="/case-studies/case-study-beirut-explosion-analysis.html"><span class="submenu-arrow">&#9656;</span> 2020 Beirut AN Explosion</a>
+              <a href="/case-studies/case-study-tianjin-explosion-analysis.html"><span class="submenu-arrow">&#9656;</span> 2015 Tianjin AN Explosion</a>
+              <a href="/case-studies/case-study-sanjuanico-explosion-analysis.html"><span class="submenu-arrow">&#9656;</span> 1984 Sanjuanico LPG Explosion</a>
+              <a href="/case-studies/case-study-borgo-italy-explosion-analysis.html"><span class="submenu-arrow">&#9656;</span> 2018 Borgo Italy LPG Explosion</a>
+              <a href="/case-studies/case-study-muskingum-explosion-analysis.html"><span class="submenu-arrow">&#9656;</span> 2007 Muskingum H2 Explosion</a>
+              <a href="/case-studies/case-study-santaclara-explosion-analysis.html"><span class="submenu-arrow">&#9656;</span> 2019 Santaclara H2 Explosion</a>
+            </div>
+          </div>
+
+          <a href="#" data-lang-key="menu_journal">Journal & Conference (coming soon)</a>
+
+          <a href="/html/bibliography.html" data-lang-key="menu_bibliography">Bibliography</a>
+        </div>
+      </div> -->
+
+				<div id="language-switcher">
+					<button
+						class="lang-btn"
+						data-lang="en"
+						aria-label="Switch to English"
+					>
+						<img src="/img/EN.svg" alt="Switch to English" />
+					</button>
+					<button
+						class="lang-btn"
+						data-lang="id"
+						aria-label="Ganti ke Bahasa Indonesia"
+					>
+						<img src="/img/ID.svg" alt="Ganti ke Bahasa Indonesia" />
+					</button>
+				</div>
+			</div>
+
+			<main class="split" role="main">
+				<div class="left">
+					<section class="card" id="materialCard" aria-labelledby="mat-head">
+						<div
+							id="mat-head"
+							class="card-header"
+							data-lang-key="card_title_material"
+						>
+							Chemical Material
+						</div>
+						<div style="padding: 14px">
+							<div class="chem-grid">
+								<div class="matcol">
+									<div>
+										<label
+											for="material"
+											class="label"
+											data-lang-key="label_select_material"
+											>Select Material</label
+										>
+										<select id="material">
+											<option value="" data-lang-key="select_option_default">
+												— Select —
+											</option>
+											<option value="AN" data-lang-key="select_option_an">
+												Ammonium Nitrate (AN)
+											</option>
+											<option value="LPG" data-lang-key="select_option_lpg">
+												Propane (LPG)
+											</option>
+											<option value="H2" data-lang-key="select_option_h2">
+												Hydrogen (H₂)
+											</option>
+										</select>
+									</div>
+									<div class="mini">
+										<div>
+											<label
+												for="vol"
+												class="label"
+												data-lang-key="label_volume"
+												>Volume (m³)</label
+											>
+											<input
+												id="vol"
+												type="number"
+												min="0"
+												step="any"
+												placeholder="e.g., 12.5"
+												aria-label="Volume"
+											/>
+										</div>
+										<div>
+											<label
+												for="dist"
+												class="label"
+												data-lang-key="label_distance"
+												>Distance (m)</label
+											>
+											<input
+												id="dist"
+												type="number"
+												min="0"
+												step="any"
+												placeholder="e.g., 150"
+												aria-label="Distance"
+											/>
+										</div>
+									</div>
+								</div>
+								<div class="eq-panel">
+									<div class="eq-title" data-lang-key="eq_panel_title">
+										Representative Overall Reaction
+									</div>
+									<div
+										id="eq-text"
+										class="eq-body"
+										data-lang-key="eq_panel_placeholder"
+									>
+										Select a material to display the reaction equation.
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<section class="card" aria-labelledby="prop-head">
+						<div
+							id="prop-head"
+							class="card-header"
+							data-lang-key="card_title_properties"
+						>
+							Properties
+						</div>
+						<div style="padding: 12px">
+							<div class="table-wrapper">
+								<table>
+									<thead>
+										<tr>
+											<th data-lang-key="table_header_properties">
+												Properties
+											</th>
+											<th data-lang-key="table_header_value">Value</th>
+											<th data-lang-key="table_header_unit">Unit</th>
+											<th data-lang-key="table_header_literature">
+												Literature
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td data-label="Properties">
+												<label for="rho">Density ρ = m/V</label>
+											</td>
+											<td data-label="Value">
+												<input id="rho" type="number" min="0" step="any" />
+											</td>
+											<td data-label="Unit" class="unit">kg/m³</td>
+											<td data-label="Source" class="ref">@Literature</td>
+										</tr>
+										<tr>
+											<td data-label="Properties">
+												<label for="dh">ΔH<sub>explosion</sub></label>
+											</td>
+											<td data-label="Value">
+												<input id="dh" type="number" step="any" />
+											</td>
+											<td data-label="Unit" class="unit">kJ/kg</td>
+											<td data-label="Source" class="ref">@Literature</td>
+										</tr>
+										<tr>
+											<td data-label="Properties">
+												<label for="pa" data-lang-key="label_ambient_pressure"
+													>Ambient Pressure</label
+												>
+											</td>
+											<td data-label="Value">
+												<input id="pa" type="number" min="0" step="any" />
+											</td>
+											<td data-label="Unit" class="unit">kPa</td>
+											<td data-label="Source" class="ref">@Literature</td>
+										</tr>
+										<tr>
+											<td data-label="Properties">
+												<label
+													for="eta"
+													data-lang-key="label_explosion_efficiency"
+													>η<sub>E</sub> Explosion Efficiency</label
+												>
+											</td>
+											<td data-label="Value">
+												<input
+													id="eta"
+													type="number"
+													min="0"
+													max="1"
+													step="any"
+												/>
+											</td>
+											<td data-label="Unit" class="unit">–</td>
+											<td data-label="Source" class="ref">@Literature</td>
+										</tr>
+										<tr>
+											<td data-label="Properties">
+												<label for="e_tnt">E<sub>TNT</sub></label>
+											</td>
+											<td data-label="Value">
+												<input id="e_tnt" type="number" min="0" step="any" />
+											</td>
+											<td data-label="Unit" class="unit">kJ/kg</td>
+											<td data-label="Source" class="ref">@Literature</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</section>
+
+					<section class="card" aria-labelledby="param-head">
+						<div id="param-head" class="card-header">
+							<span data-lang-key="card_title_parameters">Parameters</span>
+							<button
+								class="btn"
+								id="btnAddResult"
+								data-lang-key="btn_add_result"
+								disabled
+							>
+								Add to Log & Map
+							</button>
+						</div>
+						<div style="padding: 12px">
+							<div class="table-wrapper">
+								<table>
+									<thead>
+										<tr>
+											<th data-lang-key="table_header_parameters">
+												Parameters
+											</th>
+											<th data-lang-key="table_header_value">Value</th>
+											<th data-lang-key="table_header_unit">Unit</th>
+											<th data-lang-key="table_header_sources">Sources</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td
+												data-label="Parameters"
+												data-lang-key="param_mass_material"
+											>
+												(W) Mass Material
+											</td>
+											<td data-label="Value">
+												<input id="W_mass" type="text" readonly />
+											</td>
+											<td data-label="Unit" class="unit">kg</td>
+											<td
+												data-label="Source"
+												class="ref"
+												data-lang-key="source_calculated"
+											>
+												@Calculated
+											</td>
+										</tr>
+										<tr>
+											<td
+												data-label="Parameters"
+												data-lang-key="param_total_energy"
+											>
+												(E) Total Energy
+											</td>
+											<td data-label="Value">
+												<input id="E_total" type="text" readonly />
+											</td>
+											<td data-label="Unit" class="unit">kJ</td>
+											<td
+												data-label="Source"
+												class="ref"
+												data-lang-key="source_calculated"
+											>
+												@Calculated
+											</td>
+										</tr>
+										<tr>
+											<td
+												data-label="Parameters"
+												data-lang-key="param_tnt_equivalent"
+											>
+												(W) TNT Equivalent
+											</td>
+											<td data-label="Value">
+												<input id="W_tnt" type="text" readonly />
+											</td>
+											<td data-label="Unit" class="unit">kg</td>
+											<td
+												data-label="Source"
+												class="ref"
+												data-lang-key="source_calculated"
+											>
+												@Calculated
+											</td>
+										</tr>
+										<tr>
+											<td
+												data-label="Parameters"
+												data-lang-key="param_scaled_distance"
+											>
+												(Ze) Scaled Distance
+											</td>
+											<td data-label="Value">
+												<input id="Ze" type="text" readonly />
+											</td>
+											<td data-label="Unit" class="unit">
+												m·kg<sup>−1/3</sup>
+											</td>
+											<td
+												data-label="Source"
+												class="ref"
+												data-lang-key="source_calculated"
+											>
+												@Calculated
+											</td>
+										</tr>
+										<tr>
+											<td
+												data-label="Parameters"
+												data-lang-key="param_scaled_overpressure"
+											>
+												(Ps) Scaled Overpressure
+											</td>
+											<td data-label="Value">
+												<input id="Ps" type="text" readonly />
+											</td>
+											<td data-label="Unit" class="unit">–</td>
+											<td
+												data-label="Source"
+												class="ref"
+												data-lang-key="source_crowl_kinney"
+											>
+												@Crowl/Kinney
+											</td>
+										</tr>
+										<tr>
+											<td
+												data-label="Parameters"
+												data-lang-key="param_peak_overpressure"
+											>
+												(Po) Peak side-on overpressure
+											</td>
+											<td data-label="Value">
+												<input id="Po_crowl" type="text" readonly />
+											</td>
+											<td data-label="Unit" class="unit">kPa</td>
+											<td
+												data-label="Source"
+												class="ref"
+												data-lang-key="source_crowl"
+											>
+												@Crowl
+											</td>
+										</tr>
+										<tr>
+											<td
+												data-label="Parameters"
+												data-lang-key="param_peak_overpressure"
+											>
+												(Po) Peak side-on overpressure
+											</td>
+											<td data-label="Value">
+												<input id="Po_alonso" type="text" readonly />
+											</td>
+											<td data-label="Unit" class="unit">kPa</td>
+											<td
+												data-label="Source"
+												class="ref"
+												data-lang-key="source_alonso"
+											>
+												@Alonso
+											</td>
+										</tr>
+										<tr>
+											<td
+												data-label="Parameters"
+												data-lang-key="param_peak_overpressure"
+											>
+												(Po) Peak side-on overpressure
+											</td>
+											<td data-label="Value">
+												<input id="Po_sadovski" type="text" readonly />
+											</td>
+											<td data-label="Unit" class="unit">kPa</td>
+											<td
+												data-label="Source"
+												class="ref"
+												data-lang-key="source_sadovski"
+											>
+												@Sadovski
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div
+								id="msg"
+								class="status"
+								role="status"
+								aria-live="polite"
+							></div>
+						</div>
+					</section>
+
+					<section class="card" aria-labelledby="chart-head">
+						<div id="chart-head" class="card-header">
+							<span data-lang-key="chart_title_ps_vs_ze"
+								>Scaled Overpressure vs Scaled Distance</span
+							>
+							<button class="btn" id="btnExport" data-lang-key="btn_export_png">
+								Export PNG
+							</button>
+						</div>
+						<div class="chart-container">
+							<div
+								id="chart"
+								role="img"
+								aria-label="Log-log plot of Ps (Po/Pa) versus ze based on Kinney &amp; Graham (1985)."
+							></div>
+							<noscript
+								><p data-lang-key="chart_noscript">
+									Please enable JavaScript to display the chart. Reference: G.
+									F. Kinney & K. J. Graham (1985).
+								</p></noscript
+							>
+							<div class="chart-note" data-lang-key="chart_note_source">
+								Source: G. F. Kinney & K. J. Graham,
+								<em>Explosive Shocks in Air</em>, Springer-Verlag, 1985.
+							</div>
+						</div>
+					</section>
+
+					<section class="card" aria-labelledby="overpressure-chart-head">
+						<div id="overpressure-chart-head" class="card-header">
+							<span data-lang-key="chart_title_po_vs_dist"
+								>Overpressure vs Distance</span
+							>
+						</div>
+						<div class="chart-container">
+							<canvas id="overpressureChart"></canvas>
+							<div
+								id="overpressureChartMsg"
+								class="chart-note"
+								style="display: none; padding: 20px; font-size: 14px"
+							></div>
+							<noscript
+								><p data-lang-key="chart_noscript_generic">
+									Please enable JavaScript to display the chart.
+								</p></noscript
+							>
+						</div>
+					</section>
+
+					<section class="card" aria-labelledby="contour-map-head">
+						<div id="contour-map-head" class="card-header">
+							<span data-lang-key="contour_map_title"
+								>Explosion Contour Map</span
+							>
+						</div>
+						<div style="padding: 14px">
+							<div id="contourMapContainer">
+								<div class="fs-host" id="mapCard">
+									<div id="mapTitle" class="map-title">Explosion Contour</div>
+									<button
+										id="fsBtn"
+										class="fs-btn"
+										aria-pressed="false"
+										title="Fullscreen (F)"
+									>
+										⛶ Fullscreen
+									</button>
+									<button
+										id="fsBtnMobile"
+										class="fs-btn fs-btn-mobile"
+										aria-pressed="false"
+										title="Fullscreen"
+									>
+										⛶ Fullscreen
+									</button>
+									<div
+										id="map"
+										role="region"
+										aria-label="Explosion contour map"
+									></div>
+									<div class="legend" id="legend" hidden></div>
+									<div id="notification" class="notification"></div>
+								</div>
+							</div>
+							<div id="mapControls">
+								<div class="coord-inputs">
+									<label for="mapLat">Lat</label>
+									<input
+										type="number"
+										id="mapLat"
+										step="any"
+										aria-label="Latitude"
+									/>
+									<label for="mapLon">Lon</label>
+									<input
+										type="number"
+										id="mapLon"
+										step="any"
+										aria-label="Longitude"
+									/>
+								</div>
+								<div class="model-select">
+									<label for="poModelSelect">Select Po</label>
+									<select id="poModelSelect">
+										<option value="crowl">Crowl</option>
+										<option value="alonso">Alonso</option>
+										<option value="sadovski">Sadovski</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+
+				<aside class="right">
+					<section class="card estimation" aria-labelledby="est-damage">
+						<div
+							id="est-damage"
+							class="card-header"
+							data-lang-key="estimation_damage_title"
+						>
+							Estimation of Damage to Structures and Process Equipment
+						</div>
+						<div class="method-grid">
+							<div class="method-card" id="panel-damage-crowl">
+								<div class="vlabel">CROWL</div>
+								<div class="pad">
+									<p>
+										<strong>Overpressure (Po):</strong>
+										<span id="val-Po-crowl">—</span> kPa
+									</p>
+									<div>
+										<strong data-lang-key="damage_details_label"
+											>Damage Details:</strong
+										>
+										<div class="damage-category">
+											<strong data-lang-key="structural_label"
+												>Structural:</strong
+											>
+											<ul id="structural-damage-crowl"></ul>
+										</div>
+										<div class="damage-category">
+											<strong data-lang-key="process_equipment_label"
+												>Process Equipment:</strong
+											>
+											<ul id="equipment-damage-crowl"></ul>
+										</div>
+									</div>
+								</div>
+								<div class="sevfoot" id="sev-crowl" data-lang-key="unknown">
+									Unknown
+								</div>
+							</div>
+							<div class="method-card" id="panel-damage-alonso">
+								<div class="vlabel">ALONSO</div>
+								<div class="pad">
+									<p>
+										<strong>Overpressure (Po):</strong>
+										<span id="val-Po-alonso">—</span> kPa
+									</p>
+									<div>
+										<strong data-lang-key="damage_details_label"
+											>Damage Details:</strong
+										>
+										<div class="damage-category">
+											<strong data-lang-key="structural_label"
+												>Structural:</strong
+											>
+											<ul id="structural-damage-alonso"></ul>
+										</div>
+										<div class="damage-category">
+											<strong data-lang-key="process_equipment_label"
+												>Process Equipment:</strong
+											>
+											<ul id="equipment-damage-alonso"></ul>
+										</div>
+									</div>
+								</div>
+								<div class="sevfoot" id="sev-alonso" data-lang-key="unknown">
+									Unknown
+								</div>
+							</div>
+							<div class="method-card" id="panel-damage-sadovski">
+								<div class="vlabel">SADOVSKI</div>
+								<div class="pad">
+									<p>
+										<strong>Overpressure (Po):</strong>
+										<span id="val-Po-sadovski">—</span> kPa
+									</p>
+									<div>
+										<strong data-lang-key="damage_details_label"
+											>Damage Details:</strong
+										>
+										<div class="damage-category">
+											<strong data-lang-key="structural_label"
+												>Structural:</strong
+											>
+											<ul id="structural-damage-sadovski"></ul>
+										</div>
+										<div class="damage-category">
+											<strong data-lang-key="process_equipment_label"
+												>Process Equipment:</strong
+											>
+											<ul id="equipment-damage-sadovski"></ul>
+										</div>
+									</div>
+								</div>
+								<div class="sevfoot" id="sev-sadovski" data-lang-key="unknown">
+									Unknown
+								</div>
+							</div>
+						</div>
+					</section>
+					<section class="card estimation" aria-labelledby="est-injury">
+						<div
+							id="est-injury"
+							class="card-header"
+							data-lang-key="estimation_injury_title"
+						>
+							Estimation of Injury Consequences
+						</div>
+						<div class="method-grid">
+							<div class="method-card" id="panel-injury-crowl">
+								<div class="vlabel">CROWL</div>
+								<div class="pad">
+									<p>
+										<strong>Overpressure (Po):</strong>
+										<span id="val-Po-crowl-inj">—</span> kPa
+									</p>
+									<p><strong data-lang-key="effects_label">Effects:</strong></p>
+									<ul id="injury-effects-crowl"></ul>
+								</div>
+								<div
+									class="sevfoot"
+									id="sev-injury-crowl"
+									data-lang-key="unknown"
+								>
+									Unknown
+								</div>
+							</div>
+							<div class="method-card" id="panel-injury-alonso">
+								<div class="vlabel">ALONSO</div>
+								<div class="pad">
+									<p>
+										<strong>Overpressure (Po):</strong>
+										<span id="val-Po-alonso-inj">—</span> kPa
+									</p>
+									<p><strong data-lang-key="effects_label">Effects:</strong></p>
+									<ul id="injury-effects-alonso"></ul>
+								</div>
+								<div
+									class="sevfoot"
+									id="sev-injury-alonso"
+									data-lang-key="unknown"
+								>
+									Unknown
+								</div>
+							</div>
+							<div class="method-card" id="panel-injury-sadovski">
+								<div class="vlabel">SADOVSKI</div>
+								<div class="pad">
+									<p>
+										<strong>Overpressure (Po):</strong>
+										<span id="val-Po-sadovski-inj">—</span> kPa
+									</p>
+									<p><strong data-lang-key="effects_label">Effects:</strong></p>
+									<ul id="injury-effects-sadovski"></ul>
+								</div>
+								<div
+									class="sevfoot"
+									id="sev-injury-sadovski"
+									data-lang-key="unknown"
+								>
+									Unknown
+								</div>
+							</div>
+						</div>
+					</section>
+					<section class="card" aria-labelledby="log-head">
+						<div id="log-head" class="card-header">
+							<span data-lang-key="log_title">Simulation Log</span>
+							<div class="log-actions">
+								<select
+									id="simulationSelector"
+									aria-label="Pilih Skenario Simulasi"
+								></select>
+								<button
+									class="btn"
+									id="btnToggleSlider"
+									data-lang-key="btn_toggle_slider"
+								>
+									Real Event
+								</button>
+								<button class="btn" id="btnSortLog" data-lang-key="btn_sort">
+									Sort
+								</button>
+								<button
+									class="btn"
+									id="btnExportLog"
+									data-lang-key="btn_export_csv"
+								>
+									Export CSV
+								</button>
+								<button
+									class="btn"
+									id="btnImportLog"
+									data-lang-key="btn_import_csv"
+								>
+									Import CSV
+								</button>
+								<input
+									type="file"
+									id="importFile"
+									accept=".csv"
+									style="display: none"
+								/>
+							</div>
+						</div>
+						<div class="table-wrapper">
+							<table id="logTable">
+								<thead>
+									<tr>
+										<th data-lang-key="log_col_node">Node</th>
+										<th data-lang-key="log_col_material">Material</th>
+										<th>ηE</th>
+										<th>ETNT</th>
+										<th>ρ</th>
+										<th>ΔH<sub>exp</sub></th>
+										<th data-lang-key="log_col_volume">Volume</th>
+										<th data-lang-key="log_col_distance">Distance</th>
+										<th>WTNT</th>
+										<th>ze</th>
+										<th>Ps</th>
+										<th>Crowl</th>
+										<th>Alonso</th>
+										<th>Sadovski</th>
+										<th>Lat</th>
+										<th>Lon</th>
+										<th>Po Model</th>
+										<th class="col-action">-</th>
+									</tr>
+									<tr class="unit-row">
+										<th></th>
+										<th></th>
+										<th></th>
+										<th>(kJ/kg)</th>
+										<th>(kg/m³)</th>
+										<th>(kJ/kg)</th>
+										<th>(m³)</th>
+										<th>(m)</th>
+										<th>(kg)</th>
+										<th>(m·kg<sup>−1/3</sup>)</th>
+										<th></th>
+										<th>(kPa)</th>
+										<th>(kPa)</th>
+										<th>(kPa)</th>
+										<th>° N</th>
+										<th>° E</th>
+										<th>Po</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody id="logTbody"></tbody>
+							</table>
+						</div>
+						<div style="padding: 0 14px 14px">
+							<p class="footnote" data-lang-key="log_footnote">
+								Click "Save" to log the calculation results. The last 10 entries
+								will be stored in your browser.
+							</p>
+						</div>
+					</section>
+
+					<section class="card" id="aiReportCard" aria-labelledby="ai-report-head">
+						<div id="ai-report-head" class="card-header">
+							<span data-lang-key="ai_report_title">AI Process Safety Report</span>
+						</div>
+						<div style="padding: 14px;">
+							<p data-lang-key="ai_report_prompt_label">Enter a case study scenario (e.g., "LPG tank explosion"):</p>
+							<textarea id="gemini-prompt" style="width: 100%; min-height: 80px; margin-bottom: 10px; border-radius: 10px; padding: 10px; border: 1px solid #d6e3ef; font-size: 14px;"></textarea>
+							<button id="generate-report-button" class="btn" style="background: #fff; color: var(--blue-itb); width: 100%;">Generate Report</button>
+							<div id="gemini-response" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--stripe);">
+							</div>
+						</div>
+					</section>
+
+					<section
+						id="gangneungSliderContainer"
+						class="card"
+						style="display: none"
+					>
+						<div class="card-header">Slider Gangneung H2 Explosion</div>
+						<div style="padding: 14px">
+							<div class="slider-wrapper">
+								<button class="slider-arrow prev" aria-label="Previous image">
+									&#10094;
+								</button>
+								<div class="slider">
+									<div class="slide-item" id="slide-1">
+										<img
+											src="/img/gangneung-science-H2-explosion/2019-h2-tank1.webp"
+											alt="Gangneung H2 Explosion Image 1"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Gangneung Deskripsi untuk gambar 1 Gangneung Deskripsi
+											untuk gambar 1.
+										</div>
+									</div>
+									<div class="slide-item" id="slide-2">
+										<img
+											src="/img/gangneung-science-H2-explosion/2019-h2-tank2.webp"
+											alt="Gangneung H2 Explosion Image 2"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Gangneung Deskripsi untuk gambar 2.
+										</div>
+									</div>
+									<div class="slide-item" id="slide-3">
+										<img
+											src="/img/gangneung-science-H2-explosion/2019-h2-tank3.webp"
+											alt="Gangneung H2 Explosion Image 3"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Gangneung Deskripsi untuk gambar 3.
+										</div>
+									</div>
+									<div class="slide-item" id="slide-4">
+										<img
+											src="/img/gangneung-science-H2-explosion/2019-h2-tank4.webp"
+											alt="Gangneung H2 Explosion Image 4"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Gangneung Deskripsi untuk gambar 4.
+										</div>
+									</div>
+									<div class="slide-item" id="slide-5">
+										<img
+											src="/img/gangneung-science-H2-explosion/2019-h2-tank5.webp"
+											alt="Gangneung H2 Explosion Image 5"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Gangneung Deskripsi untuk gambar 5.
+										</div>
+									</div>
+									<div class="slide-item" id="slide-6">
+										<img
+											src="/img/gangneung-science-H2-explosion/2019-h2-tank6.webp"
+											alt="Gangneung H2 Explosion Image 6"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Gangneung Deskripsi untuk gambar 6.
+										</div>
+									</div>
+									<div class="slide-item" id="slide-7">
+										<img
+											src="/img/gangneung-science-H2-explosion/2019-h2-tank7.webp"
+											alt="Gangneung H2 Explosion Image 7"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Gangneung Deskripsi untuk gambar 7.
+										</div>
+									</div>
+								</div>
+								<button class="slider-arrow next" aria-label="Next image">
+									&#10095;
+								</button>
+								<div class="slider-nav">
+									<a href="#slide-1"></a>
+									<a href="#slide-2"></a>
+									<a href="#slide-3"></a>
+									<a href="#slide-4"></a>
+									<a href="#slide-5"></a>
+									<a href="#slide-6"></a>
+									<a href="#slide-7"></a>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section
+						id="beirutSliderContainer"
+						class="card"
+						style="display: none"
+					>
+						<div class="card-header">Slider Beirut AN Explosion</div>
+						<div style="padding: 14px">
+							<div class="slider-wrapper">
+								<button class="slider-arrow prev" aria-label="Previous image">
+									&#10094;
+								</button>
+								<div class="slider">
+									<div class="slide-item" id="beirut-slide-1">
+										<img
+											src="/img/beirut-AN-explosion/Beirut01.webp"
+											alt="Beirut AN Explosion Image 1"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Beirut 1.
+										</div>
+									</div>
+									<div class="slide-item" id="beirut-slide-2">
+										<img
+											src="/img/beirut-AN-explosion/Beirut02.webp"
+											alt="Beirut AN Explosion Image 2"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Beirut 2.
+										</div>
+									</div>
+									<div class="slide-item" id="beirut-slide-3">
+										<img
+											src="/img/beirut-AN-explosion/lebanon1.webp"
+											alt="Beirut AN Explosion Image 3"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Beirut 3.
+										</div>
+									</div>
+									<div class="slide-item" id="beirut-slide-4">
+										<img
+											src="/img/beirut-AN-explosion/lebanon2.webp"
+											alt="Beirut AN Explosion Image 4"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Beirut 4.
+										</div>
+									</div>
+									<div class="slide-item" id="beirut-slide-5">
+										<img
+											src="/img/beirut-AN-explosion/lebanon3.webp"
+											alt="Beirut AN Explosion Image 5"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Beirut 5.
+										</div>
+									</div>
+									<div class="slide-item" id="beirut-slide-6">
+										<img
+											src="/img/beirut-AN-explosion/lebanon4.webp"
+											alt="Beirut AN Explosion Image 6"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Beirut 6.
+										</div>
+									</div>
+									<div class="slide-item" id="beirut-slide-7">
+										<img
+											src="/img/beirut-AN-explosion/lebanon5.webp"
+											alt="Beirut AN Explosion Image 7"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Beirut 7.
+										</div>
+									</div>
+									<div class="slide-item" id="beirut-slide-8">
+										<img
+											src="/img/beirut-AN-explosion/lebanon6.webp"
+											alt="Beirut AN Explosion Image 8"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Beirut 8.
+										</div>
+									</div>
+									<div class="slide-item" id="beirut-slide-9">
+										<img
+											src="/img/beirut-AN-explosion/lebanon7.webp"
+											alt="Beirut AN Explosion Image 9"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Beirut 9.
+										</div>
+									</div>
+									<div class="slide-item" id="beirut-slide-10">
+										<img
+											src="/img/beirut-AN-explosion/lebanon8.webp"
+											alt="Beirut AN Explosion Image 10"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Beirut 10.
+										</div>
+									</div>
+									<div class="slide-item" id="beirut-slide-11">
+										<img
+											src="/img/beirut-AN-explosion/lebanon9.webp"
+											alt="Beirut AN Explosion Image 11"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Beirut 11.
+										</div>
+									</div>
+									<div class="slide-item" id="beirut-slide-12">
+										<img
+											src="/img/beirut-AN-explosion/lebanon10.webp"
+											alt="Beirut AN Explosion Image 12"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Beirut 12.
+										</div>
+									</div>
+								</div>
+								<button class="slider-arrow next" aria-label="Next image">
+									&#10095;
+								</button>
+								<div class="slider-nav">
+									<a href="#beirut-slide-1"></a> <a href="#beirut-slide-2"></a>
+									<a href="#beirut-slide-3"></a> <a href="#beirut-slide-4"></a>
+									<a href="#beirut-slide-5"></a> <a href="#beirut-slide-6"></a>
+									<a href="#beirut-slide-7"></a> <a href="#beirut-slide-8"></a>
+									<a href="#beirut-slide-9"></a>
+									<a href="#beirut-slide-10"></a>
+									<a href="#beirut-slide-11"></a>
+									<a href="#beirut-slide-12"></a>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section
+						id="tianjinSliderContainer"
+						class="card"
+						style="display: none"
+					>
+						<div class="card-header">Slider Tianjin AN Explosion</div>
+						<div style="padding: 14px">
+							<div class="slider-wrapper">
+								<button class="slider-arrow prev" aria-label="Previous image">
+									&#10094;
+								</button>
+								<div class="slider">
+									<div class="slide-item" id="tianjin-slide-1">
+										<img
+											src="/img/tianjin-AN-explosion/tianjin01.webp"
+											alt="Tianjin AN Explosion Image 1"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Tianjin 1.
+										</div>
+									</div>
+									<div class="slide-item" id="tianjin-slide-2">
+										<img
+											src="/img/tianjin-AN-explosion/tianjin02.webp"
+											alt="Tianjin AN Explosion Image 2"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Tianjin 2.
+										</div>
+									</div>
+									<div class="slide-item" id="tianjin-slide-3">
+										<img
+											src="/img/tianjin-AN-explosion/tianjin03.webp"
+											alt="Tianjin AN Explosion Image 3"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Tianjin 3.
+										</div>
+									</div>
+									<div class="slide-item" id="tianjin-slide-4">
+										<img
+											src="/img/tianjin-AN-explosion/binhai1.webp"
+											alt="Tianjin AN Explosion Image 4"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Tianjin 4.
+										</div>
+									</div>
+									<div class="slide-item" id="tianjin-slide-5">
+										<img
+											src="/img/tianjin-AN-explosion/binhai2.webp"
+											alt="Tianjin AN Explosion Image 5"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Tianjin 5.
+										</div>
+									</div>
+									<div class="slide-item" id="tianjin-slide-6">
+										<img
+											src="/img/tianjin-AN-explosion/binhai3.webp"
+											alt="Tianjin AN Explosion Image 6"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Tianjin 6.
+										</div>
+									</div>
+									<div class="slide-item" id="tianjin-slide-7">
+										<img
+											src="/img/tianjin-AN-explosion/binhai4.webp"
+											alt="Tianjin AN Explosion Image 7"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Tianjin 7.
+										</div>
+									</div>
+									<div class="slide-item" id="tianjin-slide-8">
+										<img
+											src="/img/tianjin-AN-explosion/binhai5.webp"
+											alt="Tianjin AN Explosion Image 8"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Tianjin 8.
+										</div>
+									</div>
+									<div class="slide-item" id="tianjin-slide-9">
+										<img
+											src="/img/tianjin-AN-explosion/binhai6.webp"
+											alt="Tianjin AN Explosion Image 9"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Tianjin 9.
+										</div>
+									</div>
+									<div class="slide-item" id="tianjin-slide-10">
+										<img
+											src="/img/tianjin-AN-explosion/binhai7.webp"
+											alt="Tianjin AN Explosion Image 10"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Tianjin 10.
+										</div>
+									</div>
+								</div>
+								<button class="slider-arrow next" aria-label="Next image">
+									&#10095;
+								</button>
+								<div class="slider-nav">
+									<a href="#tianjin-slide-1"></a>
+									<a href="#tianjin-slide-2"></a>
+									<a href="#tianjin-slide-3"></a>
+									<a href="#tianjin-slide-4"></a>
+									<a href="#tianjin-slide-5"></a>
+									<a href="#tianjin-slide-6"></a>
+									<a href="#tianjin-slide-7"></a>
+									<a href="#tianjin-slide-8"></a>
+									<a href="#tianjin-slide-9"></a>
+									<a href="#tianjin-slide-10"></a>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section
+						id="wenlingSliderContainer"
+						class="card"
+						style="display: none"
+					>
+						<div class="card-header">Slider Wenling LPG Explosion</div>
+						<div style="padding: 14px">
+							<div class="slider-wrapper">
+								<button class="slider-arrow prev" aria-label="Previous image">
+									&#10094;
+								</button>
+								<div class="slider">
+									<div class="slide-item" id="wenling-slide-1">
+										<img
+											src="/img/wenling-LPG-explosion/helicopter-view1.webp"
+											alt="Wenling LPG Explosion Image 1"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Wenling 1.
+										</div>
+									</div>
+									<div class="slide-item" id="wenling-slide-2">
+										<img
+											src="/img/wenling-LPG-explosion/helicopter-view2.webp"
+											alt="Wenling LPG Explosion Image 2"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Wenling 2.
+										</div>
+									</div>
+									<div class="slide-item" id="wenling-slide-3">
+										<img
+											src="/img/wenling-LPG-explosion/helicopter-view3.webp"
+											alt="Wenling LPG Explosion Image 3"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Wenling 3.
+										</div>
+									</div>
+									<div class="slide-item" id="wenling-slide-4">
+										<img
+											src="/img/wenling-LPG-explosion/helicopter-view4.webp"
+											alt="Wenling LPG Explosion Image 4"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Wenling 4.
+										</div>
+									</div>
+									<div class="slide-item" id="wenling-slide-5">
+										<img
+											src="/img/wenling-LPG-explosion/helicopter-view5.webp"
+											alt="Wenling LPG Explosion Image 5"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Wenling 5.
+										</div>
+									</div>
+									<div class="slide-item" id="wenling-slide-6">
+										<img
+											src="/img/wenling-LPG-explosion/helicopter-view6.webp"
+											alt="Wenling LPG Explosion Image 6"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Wenling 6.
+										</div>
+									</div>
+									<div class="slide-item" id="wenling-slide-7">
+										<img
+											src="/img/wenling-LPG-explosion/helicopter-view7.webp"
+											alt="Wenling LPG Explosion Image 7"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Wenling 7.
+										</div>
+									</div>
+									<div class="slide-item" id="wenling-slide-8">
+										<img
+											src="/img/wenling-LPG-explosion/helicopter-view8.webp"
+											alt="Wenling LPG Explosion Image 8"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Wenling 8.
+										</div>
+									</div>
+									<div class="slide-item" id="wenling-slide-9">
+										<img
+											src="/img/wenling-LPG-explosion/helicopter-view9.webp"
+											alt="Wenling LPG Explosion Image 9"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											loading="lazy" Deskripsi untuk gambar Wenling 9.
+										</div>
+									</div>
+								</div>
+								<button class="slider-arrow next" aria-label="Next image">
+									&#10095;
+								</button>
+								<div class="slider-nav">
+									<a href="#wenling-slide-1"></a>
+									<a href="#wenling-slide-2"></a>
+									<a href="#wenling-slide-3"></a>
+									<a href="#wenling-slide-4"></a>
+									<a href="#wenling-slide-5"></a>
+									<a href="#wenling-slide-6"></a>
+									<a href="#wenling-slide-7"></a>
+									<a href="#wenling-slide-8"></a>
+									<a href="#wenling-slide-9"></a>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section
+						id="sanjuanicoSliderContainer"
+						class="card"
+						style="display: none"
+					>
+						<div class="card-header">Slider Sanjuanico LPG Explosion</div>
+						<div style="padding: 14px">
+							<div class="slider-wrapper">
+								<button class="slider-arrow prev" aria-label="Previous image">
+									&#10094;
+								</button>
+								<div class="slider">
+									<div class="slide-item" id="san-juanico-slide-1">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_1.webp"
+											alt="Sanjuanico LPG Explosion Image 1"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 1.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-2">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_2.webp"
+											alt="Sanjuanico LPG Explosion Image 2"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 2.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-3">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_3.webp"
+											alt="Sanjuanico LPG Explosion Image 3"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 3.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-4">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_4.webp"
+											alt="Sanjuanico LPG Explosion Image 4"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 4.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-5">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_5.webp"
+											alt="Sanjuanico LPG Explosion Image 5"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 5.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-6">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_6.webp"
+											alt="Sanjuanico LPG Explosion Image 6"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 6.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-7">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_7.webp"
+											alt="Sanjuanico LPG Explosion Image 7"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 7.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-8">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_8.webp"
+											alt="Sanjuanico LPG Explosion Image 8"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 8.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-9">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_9.webp"
+											alt="Sanjuanico LPG Explosion Image 9"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 9.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-10">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_10.webp"
+											alt="Sanjuanico LPG Explosion Image 10"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 10.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-11">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_11.webp"
+											alt="Sanjuanico LPG Explosion Image 11"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 11.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-12">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_12.webp"
+											alt="Sanjuanico LPG Explosion Image 12"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 12.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-13">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_13.webp"
+											alt="Sanjuanico LPG Explosion Image 13"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 13.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-14">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_14.webp"
+											alt="Sanjuanico LPG Explosion Image 14"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 14.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-15">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_15.webp"
+											alt="Sanjuanico LPG Explosion Image 15"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 15.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-16">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_16.webp"
+											alt="Sanjuanico LPG Explosion Image 16"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 16.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-17">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_17.webp"
+											alt="Sanjuanico LPG Explosion Image 17"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 17.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-18">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_18.webp"
+											alt="Sanjuanico LPG Explosion Image 18"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 18.
+										</div>
+									</div>
+									<div class="slide-item" id="san-juanico-slide-19">
+										<img
+											src="/img/San_Juanico_LPG_Explosion/TNO_19.webp"
+											alt="Sanjuanico LPG Explosion Image 19"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk San Juanico 19.
+										</div>
+									</div>
+								</div>
+								<button class="slider-arrow next" aria-label="Next image">
+									&#10095;
+								</button>
+								<div class="slider-nav">
+									<a href="#san-juanico-slide-1"></a>
+									<a href="#san-juanico-slide-2"></a>
+									<a href="#san-juanico-slide-3"></a>
+									<a href="#san-juanico-slide-4"></a>
+									<a href="#san-juanico-slide-5"></a>
+									<a href="#san-juanico-slide-6"></a>
+									<a href="#san-juanico-slide-7"></a>
+									<a href="#san-juanico-slide-8"></a>
+									<a href="#san-juanico-slide-9"></a>
+									<a href="#san-juanico-slide-10"></a>
+									<a href="#san-juanico-slide-11"></a>
+									<a href="#san-juanico-slide-12"></a>
+									<a href="#san-juanico-slide-13"></a>
+									<a href="#san-juanico-slide-14"></a>
+									<a href="#san-juanico-slide-15"></a>
+									<a href="#san-juanico-slide-16"></a>
+									<a href="#san-juanico-slide-17"></a>
+									<a href="#san-juanico-slide-18"></a>
+									<a href="#san-juanico-slide-19"></a>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section
+						id="experimentSliderContainer"
+						class="card"
+						style="display: none"
+					>
+						<div class="card-header">Slider H2 Explosion Experiment</div>
+						<div style="padding: 14px">
+							<div class="slider-wrapper">
+								<button class="slider-arrow prev" aria-label="Previous image">
+									&#10094;
+								</button>
+								<div class="slider">
+									<div class="slide-item" id="exp-slide-1">
+										<img
+											src="/img/H2-explosion-experiment/Picture1.webp"
+											alt="H2 Explosion Experiment Image 1"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Eksperimen 1.
+										</div>
+									</div>
+									<div class="slide-item" id="exp-slide-2">
+										<img
+											src="/img/H2-explosion-experiment/Picture2.webp"
+											alt="H2 Explosion Experiment Image 2"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Eksperimen 2.
+										</div>
+									</div>
+									<div class="slide-item" id="exp-slide-3">
+										<img
+											src="/img/H2-explosion-experiment/Picture3.webp"
+											alt="H2 Explosion Experiment Image 3"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Eksperimen 3.
+										</div>
+									</div>
+									<div class="slide-item" id="exp-slide-4">
+										<img
+											src="/img/H2-explosion-experiment/Picture4.webp"
+											alt="H2 Explosion Experiment Image 4"
+											loading="lazy"
+										/>
+										<div class="slide-caption">
+											Deskripsi untuk gambar Eksperimen 4.
+										</div>
+									</div>
+								</div>
+								<button class="slider-arrow next" aria-label="Next image">
+									&#10095;
+								</button>
+								<div class="slider-nav">
+									<a href="#exp-slide-1"></a>
+									<a href="#exp-slide-2"></a>
+									<a href="#exp-slide-3"></a>
+									<a href="#exp-slide-4"></a>
+								</div>
+							</div>
+						</div>
+					</section>
+				</aside>
+			</main>
+		</div>
+
+		<div id="floatingControlPanel">
+			<div class="floating-panel-header">
+				<h3 data-lang-key="quick_control_panel">Quick Control Panel</h3>
+				<div class="panel-header-buttons">
+					<button
+						id="floatPanelCollapseBtn"
+						class="floating-panel-action-btn"
+						aria-label="Collapse/Expand Panel"
+					>
+						▲
+					</button>
+				</div>
+			</div>
+			<div class="floating-panel-body">
+				<div id="floatPanelInputs"></div>
+				<div id="floatPanelOutputs"></div>
+			</div>
+		</div>
+		<!-- 
+  <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-buttons">
+          <a class="btn-home-3d" href="/" target="_blank" rel="noopener noreferrer" data-lang-key="menu_home">Home</a>
+          <a class="btn-home-3d" href="/html/flowprocess-simulation.html" data-lang-key="footer_guide">SimFlow</a>
+          <a class="btn-home-3d" href="#" data-lang-key="footer_journal">Journal</a>
+          <a class="btn-home-3d" href="https://id.linkedin.com/in/virdanurlulu" data-lang-key="footer_profile">Profile</a>
+        </div>
+         <div class="credit">
+          <span data-lang-key="footer_copyright">Copyright © 2025 by</span>
+          <a href="https://id.linkedin.com/in/virdanurlulu" target="_blank" rel="nofollow noopener noreferrer" style="text-decoration: none;">Virda Nur Lu'lu</a>
+        </div> 
+        <div class="dedication">
+          <span data-lang-key="footer_dedication1">This application is dedicated to my parents for their persistent support and patient guidance throughout my JavaScript journey.</span>
+          <span data-lang-key="footer_dedication2">It is also presented to the academic community at</span>
+          <a href="https://che.itb.ac.id/" target="_blank" rel="nofollow noopener noreferrer" data-lang-key="footer_dedication_itb">Bandung Institute of Technology</a>
+          <span data-lang-key="footer_dedication3">as a contribution towards inspiring further advancements in JavaScript technology.</span>
+        </div>
+        <div class = "disclaimer">
+          <span data-lang-key="footer_disclaimer">This application is part of my thesis research concerning the evaluation of explosion consequences in relation to distance for various chemical substances (AN, LPG, & H2). Its purpose is purely academic, intended as a preliminary assessment for establishing safe distances. I sincerely welcome any constructive feedback and criticism to enrich this study, both from the perspective of chemical engineering and the implementation of JavaScript technology.</span>
+        </div>
+  </footer> -->
+		<div id="footer-placeholder"></div>
+
+		<button class="btn" id="toTop" type="button" aria-label="Back to Top">
+			&#8679;
+		</button>
+		<script
+			src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+			defer
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+			defer
+		></script>
+		<script src="/js/cartesian-crs.js" defer></script>
+		<script src="/js/gemini-report-generator.js" defer></script>
+		<script src="/js/app-simulator.js" defer></script>
+		<script src="/js/map-loader.js" defer></script>
+	</body>
+</html>

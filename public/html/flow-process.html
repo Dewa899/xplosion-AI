@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alur Proses Aplikasi - Simulasi Ledakan</title>
+
+    <!-- Skrip yang ditambahkan -->
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="canonical" href="https://virdanurlulu.github.io/">
+    <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
+    <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
+    <link rel="preload" as="image" href="/img/banner-itb1.webp">
+    <meta name="description" content="Dokumentasi alur proses untuk Aplikasi Simulasi dan Pemodelan Efek Ledakan Berdasarkan Ekuivalensi TNT.">
+    <meta name="author" content="Virda Nur Lu'lu">
+    <meta name="robots" content="index,follow">
+    <meta name="theme-color" content="#0079c2">
+    <meta name="color-scheme" content="light dark">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Master’s Program in Chemical Engineering, Bandung Institute of Technology">
+    <meta property="og:title" content="Alur Proses - Simulasi dan Pemodelan Efek Ledakan">
+    <meta property="og:description" content="Visualisasi flowchart yang menjelaskan alur kerja maju dan alur kerja terbalik dari aplikasi simulasi ledakan.">
+    <meta property="og:url" content="https://virdanurlulu.github.io/">
+    <meta property="og:image" content="/img/ITB-Exlosion-Modeling-Simulation.webp">
+    <meta property="og:image:type" content="image/webp">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Alur Proses - Simulasi dan Pemodelan Efek Ledakan">
+    <meta name="twitter:description" content="Visualisasi flowchart yang menjelaskan alur kerja maju dan alur kerja terbalik dari aplikasi simulasi ledakan.">
+    <meta name="twitter:image" content="/img/ITB-Exlosion-Modeling-Simulation.webp">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Alur Proses Aplikasi Simulasi Ledakan",
+      "description": "Dokumentasi interaktif yang memvisualisasikan alur kerja aplikasi pemodelan efek ledakan.",
+      "url": "https://virdanurlulu.github.io/",
+      "author": {"@type": "Person", "name": "Virda Nur Lu'lu", "sameAs": ["https://id.linkedin.com/in/virdanurlulu"]},
+      "publisher": {"@type": "Organization", "name": "Bandung Institute of Technology", "url": "https://che.itb.ac.id/"}
+    }
+    </script>
+    
+    <!-- Menambahkan FontAwesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style-main.css">
+    <style>
+        :root {
+            --ink: #1e2b3b;
+            --muted: #64748b;
+            --card: #ffffff;
+            --bg: #f5f7fb;
+            --blue-itb: #0079c2;
+            --stripe: #eaf3fb;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --serif-font: Georgia, "Times New Roman", serif;
+        }
+        * { box-sizing: border-box; }
+        html, body { height: 100%; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        }
+        
+
+        .flowchart-container {
+            background: var(--card);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            height: fit-content;
+        }
+        .flowchart-header {
+            background: var(--blue-itb);
+            color: #fff;
+            padding: 16px 20px;
+            text-align: center;
+            font-size: 1.4em;
+            font-family: var(--serif-font);
+        }
+        .flowchart {
+            padding: 20px;
+            padding-left: 45px;
+        }
+        .node {
+            background: var(--stripe);
+            border: 1px solid #e0e6ec;
+            border-left-width: 4px;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 25px 0;
+            text-align: left;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.25s ease-in-out;
+        }
+        .node:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            border-left-color: var(--blue-itb);
+        }
+        
+        .node::before {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: -25px;
+            transform: translateY(-50%);
+            font-size: 1em;
+            color: #fff;
+            background-color: var(--border-color);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--card);
+        }
+        
+        .node.input { border-left-color: #29b6f6; --border-color: #29b6f6;}
+        .node.input::before { content: "\f093"; }
+
+        .node.process { border-left-color: #6c757d; --border-color: #6c757d;}
+        .node.process::before { content: "\f085"; }
+        
+        .node.decision { border-left-color: #ef5350; --border-color: #ef5350;}
+        .node.decision::before { content: "\f059"; }
+
+        .node.output { border-left-color: #ffa726; --border-color: #ffa726;}
+        .node.output::before { content: "\f080"; }
+
+        .node-content { display: flex; flex-direction: column; }
+        .node .title {
+            font-weight: 600;
+            font-size: 1.15em;
+            color: var(--ink);
+        }
+        .node .subtitle {
+            font-size: 0.9em;
+            color: var(--muted);
+        }
+        
+        .arrow { text-align: center; margin: -15px 0; }
+        .arrow::after { content: '↓'; font-size: 2em; color: #bdc3c7; }
+        .arrow.up::after { content: '↑'; }
+
+        .details { 
+            /* display: none;  */
+            margin-top: 15px; 
+            padding-top: 15px; 
+            border-top: 1px solid #e0e6ec; 
+            text-align: left; font-size: 0.95em; }
+
+        .formula-eq { 
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; 
+            background-color: #e8eaf6; 
+            padding: 10px; 
+            border-radius: 4px; 
+            margin: 10px 0; 
+            display: block; 
+            white-space: pre-wrap; 
+            word-wrap: break-word; 
+            border: 1px solid #c5cae9;
+            font-size: 0.9em;
+        }
+        ul { padding-left: 20px; margin-bottom: 0; }
+        
+    </style>
+</head>
+<body class="full">
+
+<!-- KEY CHANGE: Moved dropdown menu outside the banner/wrap for fixed positioning -->
+<div id="menu-placeholder"></div> <div class="wrap">
+
+<div class="wrap">
+    <header class="banner">
+        <div class="brandbar">
+            <a href="https://virdanurlulu.github.io/" target="_blank" rel="noopener noreferrer">
+                <img id="itbLogo" class="brand-logo" alt="Logo ITB" width="96" height="96">
+            </a>
+            <div class="brand-text">
+                <h1 data-lang-key="flow_page_title">Alur Proses Simulasi dan Pemodelan Efek Ledakan Berdasarkan Ekuivalensi TNT</h1>
+                <h3 data-lang-key="page_subtitle">Teknik Kimia, Institut Teknologi Bandung</h3>
+                <h3 class="authors">Virda Nur Lu’lu, S.T., IPP<br>Dr. Eng. Ir. Pramujo Widiatmoko, S.T., M.T.<br>Ir. Hary Devianto, S.T., M.Eng., Ph.D., IPM, AER.*</h3>
+            </div>
+        </div>
+        
+        <div id="language-switcher">
+            <button class="lang-btn active" data-lang="id" aria-label="Ganti ke Bahasa Indonesia"><img src="/img/ID.svg" alt="ID Flag"></button>
+            <button class="lang-btn" data-lang="en" aria-label="Switch to English"><img src="/img/EN.svg" alt="EN Flag"></button>
+        </div>
+    </header>
+
+    <main class="split">
+        <div class="left">
+            <div class="flowchart-container">
+                <div class="flowchart-header" data-lang-key="header_forward">Alur Kerja Maju (Simulasi Baru)</div>
+                <div class="flowchart">
+                    <div class="node input" onclick="toggleDetails('details1')"><div class="node-content"><span class="title" data-lang-key="s1_title">Langkah 1: Input Pengguna</span><span class="subtitle" data-lang-key="s1_subtitle">Pilih Material, Volume, dan Jarak</span></div><div class="details" id="details1" data-lang-key="s1_details">Pengguna memulai simulasi dengan memberikan tiga input utama:<ul><li><strong>Pilihan Material:</strong> Memilih antara Amonium Nitrat (AN), Propana (LPG), atau Hidrogen (H₂).</li><li><strong>Volume (m³):</strong> Jumlah volume dari material yang dipilih.</li><li><strong>Jarak (m):</strong> Jarak dari titik pusat ledakan ke lokasi yang ditinjau.</li></ul></div></div>
+                    <div class="arrow"></div>
+                    <div class="node process" onclick="toggleDetails('details2')"><div class="node-content"><span class="title" data-lang-key="s2_title">Langkah 2: Properti Material</span><span class="subtitle" data-lang-key="s2_subtitle">Nilai default dimuat & dapat diubah</span></div><div class="details formula" id="details2" data-lang-key="s2_details">Setelah memilih material, properti kimianya dari literatur secara otomatis dimuat. Pengguna dapat meninjau atau mengubah nilai-nilai ini:<ul><li><strong>Density (ρ):</strong> ... kg/m³ (Angka default dan editable angka)</li><li><strong>ΔH<sub>explosion</sub>:</strong> ... kJ/kg (Angka default dan editable angka)</li><li><strong>Ambient Pressure (P<sub>a</sub>):</strong> 101.325 kPa (Default 101.325)</li><li><strong>η<sub>E</sub> Explosion Efficiency:</strong> ... (Default)</li><li><strong>E<sub>TNT</sub>:</strong> ... kJ/kg (Angka default dan editable angka)</li></ul></div></div>
+                    <div class="arrow"></div>
+                    <div class="node process" onclick="toggleDetails('details3')"><div class="node-content"><span class="title" data-lang-key="s3_title">Langkah 3: Kalkulasi Inti</span><span class="subtitle" data-lang-key="s3_subtitle">Hitung semua parameter utama ledakan</span></div><div class="details formula" id="details3">Aplikasi menghitung semua parameter kunci ledakan.<code class="formula-eq">(W) Mass Material = ρ × Volume</code><code class="formula-eq">(E) Total Energy = W × ΔH_explosion × η_E</code><code class="formula-eq">(W_tnt) Ekuivalen TNT = E / E_TNT</code><code class="formula-eq">(Ze) Scaled Distance = Jarak / (W_tnt)^(1/3)</code><code class="formula-eq">(Ps) Scaled Overpressure = Po / Pa</code><code class="formula-eq">(Po) Crowl = Pa * (1616 * (1+(Ze/4.5)²)) / (√(1+(Ze/0.048)²) * √(1+(Ze/0.32)²) * √(1+(Ze/1.35)²))</code><code class="formula-eq" data-lang-key="s3_alonso">(Po) Alonso (kPa):
+Jika Ze &lt; 10 → (1.13e6 * Ze⁻²·⁰¹) / 1000
+Jika Ze ≥ 10 → (1.83e5 * Ze⁻¹·¹⁶) / 1000</code><code class="formula-eq" data-lang-key="s3_sadovski">(Po) Sadovski (kPa) = (0.085*r + 0.3*r² + 0.8*r³) * 1000
+di mana r = (W_tnt)^(1/3) / Jarak</code></div></div>
+                    <div class="arrow"></div>
+                    <div class="node decision" onclick="toggleDetails('details4')"><div class="node-content"><span class="title" data-lang-key="s4_title">Langkah 4: Validasi Model</span><span class="subtitle" data-lang-key="s4_subtitle">Periksa rentang valid Ze</span></div><div class="details" id="details4" data-lang-key="s4_details">Aplikasi memvalidasi nilai `Ze` yang dihitung. Peringatan akan diberikan jika nilai berada di luar rentang yang disarankan untuk setiap model.<ul><li><b>Crowl:</b> 0.01 ≤ Ze ≤ 100</li><li><b>Alonso:</b> 1 ≤ Ze ≤ 200</li><li><b>Sadovski:</b> 1 ≤ Ze ≤ 15</li></ul></div></div>
+                    <div class="arrow"></div>
+                    <div class="node output" onclick="toggleDetails('details5')"><div class="node-content"><span class="title" data-lang-key="s5_title">Langkah 5: Hasil & Analisis</span><span class="subtitle" data-lang-key="s5_subtitle">Estimasi Kerusakan/Cedera dan Grafik</span></div><div class="details" id="details5" data-lang-key="s5_details">Nilai `Po` yang dihitung digunakan untuk:<ul><li>Estimasi Kerusakan Struktur & Peralatan.</li><li>Estimasi Konsekuensi Cedera.</li><li>Plot titik (Ze, Ps) pada Grafik Ps vs. Ze.</li></ul></div></div>
+                    <div class="arrow"></div>
+                    <div class="node process" onclick="toggleDetails('details6')"><div class="node-content"><span class="title" data-lang-key="s6_title">Langkah 6: Pencatatan Simulasi</span><span class="subtitle" data-lang-key="s6_subtitle">Pengguna menyimpan hasil ke Log</span></div><div class="details" id="details6" data-lang-key="s6_details">Pengguna dapat menyimpan set lengkap input dan output sebagai sebuah "Node" di tabel log untuk perbandingan.</div></div>
+                    <div class="arrow"></div>
+                    <div class="node output" onclick="toggleDetails('details7')"><div class="node-content"><span class="title" data-lang-key="s7_title">Langkah 7: Visualisasi Agregat</span><span class="subtitle" data-lang-key="s7_subtitle">Perbarui Grafik & Peta Kontur</span></div><div class="details" id="details7" data-lang-key="s7_details">Data dari semua "Node" di log digunakan untuk secara otomatis menghasilkan:<ul><li>Grafik Tekanan Berlebih vs. Jarak.</li><li>Peta Kontur Ledakan.</li></ul></div></div>
+                </div>
+            </div>
+        </div>
+
+        <aside class="right">
+            <div class="flowchart-container">
+                <div class="flowchart-header" data-lang-key="header_reverse">Alur Kerja Terbalik (Dari Data Tersimpan)</div>
+                <div class="flowchart">
+                    <div class="node output" onclick="toggleDetails('detailsR5')"><div class="node-content"><span class="title" data-lang-key="sr5_title">Hasil Akhir: Input Terisi</span><span class="subtitle" data-lang-key="sr5_subtitle">Formulir diisi otomatis</span></div><div class="details" id="detailsR5" data-lang-key="sr5_details">Sebagai langkah terakhir dari alur terbalik, bidang input awal (Material, Volume, Jarak) dan Properti diisi dengan data dari Node yang dipilih, memungkinkan pengguna untuk meninjau atau memodifikasi simulasi yang ada.</div></div>
+                    <div class="arrow up"></div>
+                    <div class="node output" onclick="toggleDetails('detailsR4')"><div class="node-content"><span class="title" data-lang-key="sr4_title">Langkah 4: Analisis Detail</span><span class="subtitle" data-lang-key="sr4_subtitle">Panel estimasi diperbarui</span></div><div class="details" id="detailsR4" data-lang-key="sr4_details">Aplikasi langsung memperbarui panel "Estimasi Kerusakan" dan "Estimasi Cedera" dengan nilai-nilai dari Node yang dipilih. Titik yang sesuai pada Grafik Ps vs. Ze juga disorot.</div></div>
+                    <div class="arrow up"></div>
+                    <div class="node process" onclick="toggleDetails('detailsR3')"><div class="node-content"><span class="title" data-lang-key="sr3_title">Langkah 3: Interaksi Log</span><span class="subtitle" data-lang-key="sr3_subtitle">Pengguna memilih 'Node' di tabel</span></div><div class="details" id="detailsR3" data-lang-key="sr3_details">Ketika pengguna mengklik baris "Node" tertentu di dalam tabel log...</div></div>
+                    <div class="arrow up"></div>
+                    <div class="node output" onclick="toggleDetails('detailsR2')"><div class="node-content"><span class="title" data-lang-key="sr2_title">Langkah 2: Visualisasi Instan</span><span class="subtitle" data-lang-key="sr2_subtitle">Grafik dan Peta diplot</span></div><div class="details" id="detailsR2" data-lang-key="sr2_details">Berdasarkan data yang diimpor atau dimuat, "Grafik Tekanan Berlebih vs. Jarak" dan "Peta Kontur Ledakan" segera diplot. Data dari Node 1 ditampilkan secara default.</div></div>
+                    <div class="arrow up"></div>
+                    <div class="node input" onclick="toggleDetails('detailsR1')"><div class="node-content"><span class="title" data-lang-key="sr1_title">Langkah 1: Memuat Data</span><span class="subtitle" data-lang-key="sr1_subtitle">Impor atau Muat Log Tersimpan</span></div><div class="details" id="detailsR1" data-lang-key="sr1_details">Pengguna memulai dengan mengimpor file simulasi (.csv) atau aplikasi secara otomatis memuat data simulasi terakhir dari penyimpanan browser. Seluruh set data dimuat ke dalam tabel Log Simulasi.</div></div>
+                </div>
+            </div>
+        </aside>
+    </main>
+    
+    <div id="footer-placeholder"></div>
+
+    <!-- <footer class="app-footer">
+        <div class="footer-content">
+            <div class="credit" data-lang-key="footer_copyright">Hak Cipta © 2025 oleh <a href="https://id.linkedin.com/in/virdanurlulu" target="_blank" rel="nofollow noopener noreferrer">Virda Nur Lu'lu</a></div>
+            <div class="dedication" data-lang-key="footer_dedication">Aplikasi ini didedikasikan untuk orang tua saya atas dukungan dan bimbingan sabar mereka sepanjang perjalanan JavaScript saya. Ini juga dipersembahkan kepada komunitas akademik di <a href="https://che.itb.ac.id/" target="_blank" rel="nofollow noopener noreferrer">Institut Teknologi Bandung</a> sebagai kontribusi untuk menginspirasi kemajuan lebih lanjut dalam teknologi JavaScript.</div>
+        </div>
+    </footer> -->
+</div>
+
+<script>
+//     const translations = {
+//         en: {
+//             page_title: "Process Flow of Explosion Effect Simulation and Modeling Based on TNT Equivalence",
+//             page_subtitle: "Chemical Engineering, Bandung Institute of Technology",
+//             menu_button: "Menu",
+//             menu_home: "Home",
+//             menu_app: "Simulation & Modeling Application",
+//             menu_guide: "Workflow Process of Simulation",
+//             menu_presentation: "Presentation",
+//             menu_journal: "Journal & Conference (coming soon)",
+//             menu_bibliography: "Bibliography",
+//             header_forward: "Forward Workflow (New Simulation)",
+//             s1_title: "Step 1: User Input",
+//             s1_subtitle: "Select Material, Volume, and Distance",
+//             s1_details: "The user begins the simulation by providing three primary inputs:<ul><li><strong>Material Selection:</strong> Choose from Ammonium Nitrate (AN), Propane (LPG), or Hydrogen (H₂).</li><li><strong>Volume (m³):</strong> The volume of the selected material.</li><li><strong>Distance (m):</strong> The distance from the explosion's origin to the point of interest.</li></ul>",
+//             s2_title: "Step 2: Material Properties",
+//             s2_subtitle: "Defaults are loaded & editable",
+//             s2_details: "After selecting a material, its chemical properties from literature are automatically loaded. The user can review or modify these values:<ul><li><strong>Density (ρ):</strong> ... kg/m³ (Default and editable value)</li><li><strong>ΔH<sub>explosion</sub>:</strong> ... kJ/kg (Default and editable value)</li><li><strong>Ambient Pressure (P<sub>a</sub>):</strong> 101.325 kPa (Default 101.325)</li><li><strong>η<sub>E</sub> Explosion Efficiency:</strong> ... (Default)</li><li><strong>E<sub>TNT</sub>:</strong> ... kJ/kg (Default and editable value)</li></ul>",
+//             s3_title: "Step 3: Core Calculations",
+//             s3_subtitle: "Calculate all main explosion parameters",
+//             s3_alonso: `(Po) Alonso (kPa):
+// If Ze &lt; 10 → (1.13e6 * Ze⁻²·⁰¹) / 1000
+// If Ze ≥ 10 → (1.83e5 * Ze⁻¹·¹⁶) / 1000`,
+//             s3_sadovski: `(Po) Sadovski (kPa) = (0.085*r + 0.3*r² + 0.8*r³) * 1000
+// where r = (W_tnt)^(1/3) / Distance`,
+//             s4_title: "Step 4: Model Validation",
+//             s4_subtitle: "Check valid Ze range",
+//             s4_details: "The application validates the calculated `Ze` value. A warning is issued if the value is outside the recommended range for each model.<ul><li><b>Crowl:</b> 0.01 ≤ Ze ≤ 100</li><li><b>Alonso:</b> 1 ≤ Ze ≤ 200</li><li><b>Sadovski:</b> 1 ≤ Ze ≤ 15</li></ul>",
+//             s5_title: "Step 5: Results & Analysis",
+//             s5_subtitle: "Damage/Injury Estimation and Charts",
+//             s5_details: "The calculated `Po` values are used to:<ul><li>Estimate Damage to Structures & Equipment.</li><li>Estimate Injury Consequences.</li><li>Plot the (Ze, Ps) point on the Ps vs. Ze Chart.</li></ul>",
+//             s6_title: "Step 6: Simulation Logging",
+//             s6_subtitle: "User saves results to the Log",
+//             s6_details: "The user can save the complete set of inputs and outputs as a 'Node' in the log table for comparison.",
+//             s7_title: "Step 7: Aggregate Visualization",
+//             s7_subtitle: "Update Charts & Contour Map",
+//             s7_details: "Data from all 'Nodes' in the log are used to automatically generate:<ul><li>Overpressure vs. Distance Chart.</li><li>Explosion Contour Map.</li></ul>",
+//             header_reverse: "Reverse Workflow (From Saved Data)",
+//             sr1_title: "Step 1: Data Loading",
+//             sr1_subtitle: "Import or Load Saved Log",
+//             sr1_details: "The user starts by importing a simulation file (.csv) or the application automatically loads the last simulation data from browser storage. The entire dataset is loaded into the Simulation Log table.",
+//             sr2_title: "Step 2: Instant Visualization",
+//             sr2_subtitle: "Charts and Map are plotted",
+//             sr2_details: "Based on the imported or loaded data, the 'Overpressure vs. Distance Chart' and the 'Explosion Contour Map' are immediately plotted. Data from Node 1 is displayed by default.",
+//             sr3_title: "Step 3: Log Interaction",
+//             sr3_subtitle: "User selects a 'Node' from the table",
+//             sr3_details: "When the user clicks a specific 'Node' row within the log table...",
+//             sr4_title: "Step 4: Detailed Analysis",
+//             sr4_subtitle: "Estimation panels are updated",
+//             sr4_details: "The application instantly updates the 'Damage Estimation' and 'Injury Estimation' panels with the values from the selected Node. The corresponding point on the Ps vs. Ze Chart is also highlighted.",
+//             sr5_title: "End Result: Inputs Populated",
+//             sr5_subtitle: "Input form is auto-filled",
+//             sr5_details: "As the final step of the reverse workflow, the initial input fields (Material, Volume, Distance) and Properties are populated with data from the selected Node, allowing the user to review or modify an existing simulation.",
+//             footer_copyright: "Copyright © 2025 by <a href='https://id.linkedin.com/in/virdanurlulu' target='_blank' rel='nofollow noopener noreferrer'>Virda Nur Lu'lu</a>",
+//             footer_dedication: "This application is dedicated to my parents for their persistent support and patient guidance throughout my JavaScript journey. It is also presented to the academic community at <a href='https://che.itb.ac.id/' target='_blank' rel='nofollow noopener noreferrer'>Bandung Institute of Technology</a> as a contribution towards inspiring further advancements in JavaScript technology."
+//         },
+//         id: {
+//             page_title: "Alur Proses Simulasi dan Pemodelan Efek Ledakan Berdasarkan Ekuivalensi TNT",
+//             page_subtitle: "Teknik Kimia, Institut Teknologi Bandung",
+//             menu_button: "Menu",
+//             menu_home: "Beranda",
+//             menu_app: "Aplikasi Simulasi & Pemodelan",
+//             menu_guide: "Panduan Simulasi (segera hadir)",
+//             menu_presentation: "Presentasi",
+//             menu_journal: "Jurnal & Konferensi (segera hadir)",
+//             menu_bibliography: "Bibliografi",
+//             header_forward: "Alur Kerja Maju (Simulasi Baru)",
+//             s1_title: "Langkah 1: Input Pengguna",
+//             s1_subtitle: "Pilih Material, Volume, dan Jarak",
+//             s1_details: "Pengguna memulai simulasi dengan memberikan tiga input utama:<ul><li><strong>Pilihan Material:</strong> Memilih antara Amonium Nitrat (AN), Propana (LPG), atau Hidrogen (H₂).</li><li><strong>Volume (m³):</strong> Jumlah volume dari material yang dipilih.</li><li><strong>Jarak (m):</strong> Jarak dari titik pusat ledakan ke lokasi yang ditinjau.</li></ul>",
+//             s2_title: "Langkah 2: Properti Material",
+//             s2_subtitle: "Nilai default dimuat & dapat diubah",
+//             s2_details: "Setelah memilih material, properti kimianya dari literatur secara otomatis dimuat. Pengguna dapat meninjau atau mengubah nilai-nilai ini:<ul><li><strong>Densitas (ρ):</strong> ... kg/m³ (Angka default dan dapat diubah)</li><li><strong>ΔH<sub>ledakan</sub>:</strong> ... kJ/kg (Angka default dan dapat diubah)</li><li><strong>Tekanan Ambien (P<sub>a</sub>):</strong> 101.325 kPa (Default 101.325)</li><li><strong>Efisiensi Ledakan η<sub>E</sub>:</strong> ... (Default)</li><li><strong>E<sub>TNT</sub>:</strong> ... kJ/kg (Angka default dan dapat diubah)</li></ul>",
+//             s3_title: "Langkah 3: Kalkulasi Inti",
+//             s3_subtitle: "Hitung semua parameter utama ledakan",
+//             s3_alonso: `(Po) Alonso (kPa):
+// Jika Ze &lt; 10 → (1.13e6 * Ze⁻²·⁰¹) / 1000
+// Jika Ze ≥ 10 → (1.83e5 * Ze⁻¹·¹⁶) / 1000`,
+//             s3_sadovski: `(Po) Sadovski (kPa) = (0.085*r + 0.3*r² + 0.8*r³) * 1000
+// di mana r = (W_tnt)^(1/3) / Jarak`,
+//             s4_title: "Langkah 4: Validasi Model",
+//             s4_subtitle: "Periksa rentang valid Ze",
+//             s4_details: "Aplikasi memvalidasi nilai `Ze` yang dihitung. Peringatan akan diberikan jika nilai berada di luar rentang yang disarankan untuk setiap model.<ul><li><b>Crowl:</b> 0.01 ≤ Ze ≤ 100</li><li><b>Alonso:</b> 1 ≤ Ze ≤ 200</li><li><b>Sadovski:</b> 1 ≤ Ze ≤ 15</li></ul>",
+//             s5_title: "Langkah 5: Hasil & Analisis",
+//             s5_subtitle: "Estimasi Kerusakan/Cedera dan Grafik",
+//             s5_details: "Nilai `Po` yang dihitung digunakan untuk:<ul><li>Estimasi Kerusakan Struktur & Peralatan.</li><li>Estimasi Konsekuensi Cedera.</li><li>Plot titik (Ze, Ps) pada Grafik Ps vs. Ze.</li></ul>",
+//             s6_title: "Langkah 6: Pencatatan Simulasi",
+//             s6_subtitle: "Pengguna menyimpan hasil ke Log",
+//             s6_details: "Pengguna dapat menyimpan set lengkap input dan output sebagai sebuah 'Node' di tabel log untuk perbandingan.",
+//             s7_title: "Langkah 7: Visualisasi Agregat",
+//             s7_subtitle: "Perbarui Grafik & Peta Kontur",
+//             s7_details: "Data dari semua 'Node' di log digunakan untuk secara otomatis menghasilkan:<ul><li>Grafik Tekanan Berlebih vs. Jarak.</li><li>Peta Kontur Ledakan.</li></ul>",
+//             header_reverse: "Alur Kerja Terbalik (Dari Data Tersimpan)",
+//             sr1_title: "Langkah 1: Memuat Data",
+//             sr1_subtitle: "Impor atau Muat Log Tersimpan",
+//             sr1_details: "Pengguna memulai dengan mengimpor file simulasi (.csv) atau aplikasi secara otomatis memuat data simulasi terakhir dari penyimpanan browser. Seluruh set data dimuat ke dalam tabel Log Simulasi.",
+//             sr2_title: "Langkah 2: Visualisasi Instan",
+//             sr2_subtitle: "Grafik dan Peta diplot",
+//             sr2_details: "Berdasarkan data yang diimpor atau dimuat, 'Grafik Tekanan Berlebih vs. Jarak' dan 'Peta Kontur Ledakan' segera diplot. Data dari Node 1 ditampilkan secara default.",
+//             sr3_title: "Langkah 3: Interaksi Log",
+//             sr3_subtitle: "Pengguna memilih 'Node' di tabel",
+//             sr3_details: "Ketika pengguna mengklik baris 'Node' tertentu di dalam tabel log...",
+//             sr4_title: "Langkah 4: Analisis Detail",
+//             sr4_subtitle: "Panel estimasi diperbarui",
+//             sr4_details: "Aplikasi langsung memperbarui panel 'Estimasi Kerusakan' dan 'Estimasi Cedera' dengan nilai-nilai dari Node yang dipilih. Titik yang sesuai pada Grafik Ps vs. Ze juga disorot.",
+//             sr5_title: "Hasil Akhir: Input Terisi",
+//             sr5_subtitle: "Formulir diisi otomatis",
+//             sr5_details: "Sebagai langkah terakhir dari alur terbalik, bidang input awal (Material, Volume, Jarak) dan Properti diisi dengan data dari Node yang dipilih, memungkinkan pengguna untuk meninjau atau memodifikasi simulasi yang ada.",
+//             footer_copyright: "Hak Cipta © 2025 oleh <a href='https://id.linkedin.com/in/virdanurlulu' target='_blank' rel='nofollow noopener noreferrer'>Virda Nur Lu'lu</a>",
+//             footer_dedication: "Aplikasi ini didedikasikan untuk orang tua saya atas dukungan dan bimbingan sabar mereka sepanjang perjalanan JavaScript saya. Ini juga dipersembahkan kepada komunitas akademik di <a href='https://che.itb.ac.id/' target='_blank' rel='nofollow noopener noreferrer'>Institut Teknologi Bandung</a> sebagai kontribusi untuk menginspirasi kemajuan lebih lanjut dalam teknologi JavaScript."
+//         }
+//     };
+
+    function setLanguage(lang) {
+        if (!translations[lang]) return;
+        document.documentElement.lang = lang;
+        try { localStorage.setItem('preferredLanguage', lang); } catch (e) {}
+        
+        document.querySelectorAll('[data-lang-key]').forEach(el => {
+            const key = el.getAttribute('data-lang-key');
+            if (translations[lang][key]) {
+                el.innerHTML = translations[lang][key];
+            }
+        });
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.lang === lang);
+        });
+    }
+
+    function toggleDetails(id) {
+    var element = document.getElementById(id);
+    // Cek apakah display BUKAN 'none' (artinya terlihat atau default)
+    if (element.style.display !== "none") {
+        element.style.display = "none"; // Sembunyikan saat diklik pertama kali
+    } else {
+        element.style.display = "block"; // Tampilkan lagi jika diklik saat tersembunyi
+    }
+}
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const dropdown = document.querySelector('.dropdown-menu');
+        if (dropdown) {
+            const dropdownToggle = dropdown.querySelector('.dropdown-toggle');
+            dropdownToggle.addEventListener('click', (event) => {
+                event.stopPropagation();
+                dropdown.classList.toggle('is-active');
+            });
+            document.addEventListener('click', (event) => {
+                if (dropdown.classList.contains('is-active') && !dropdown.contains(event.target)) {
+                    dropdown.classList.remove('is-active');
+                }
+            });
+        }
+
+        const img = document.getElementById("itbLogo");
+        if(img) {
+            const fallback = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"><circle cx="128" cy="128" r="120" fill="%230079c2"/><text x="50%" y="56%" font-family="Georgia, serif" font-size="88" text-anchor="middle" fill="white">ITB</text></svg>';
+            img.onerror = () => { img.onerror = null; img.src = fallback; };
+            img.src = "/img/Logo_Institut_Teknologi_Bandung.webp";
+        }
+        
+        const langButtons = document.querySelectorAll('.lang-btn');
+        langButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                setLanguage(button.dataset.lang);
+            });
+        });
+        
+        const preferredLanguage = localStorage.getItem('preferredLanguage') || 'id';
+        setLanguage(preferredLanguage);
+    });
+</script>
+<script src="/js/app-simulator.js" defer></script>
+</body>
+</html>
+

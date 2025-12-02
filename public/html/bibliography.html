@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliography for Simulation and Modeling of Explosion Effects Based on TNT equivalence</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="An interactive, searchable academic bibliography focusing on Simulation and Modeling of Explosion Effects Based on TNT equivalence, and explosion analysis, chemical engineering, including case studies like Tianjin, Beirut, and Feyzin.">
+    <meta name="keywords" content="bibliography, references, Simulation and Modeling, Explosion Effects, TNT equivalence, explosion analysis, LPG, Ammonium Nitrate, Hydrogen, BLEVE, vapor cloud explosion, academic resources">
+    <link rel="canonical" href="https://virdanurlulu.github.io/" />
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+
+    <!-- Open Graph Meta Tags for Social Sharing -->
+    <meta property="og:title" content="Academic Bibliography: Simulation and Modeling of Explosion Effects Based on TNT equivalence" />
+    <meta property="og:description" content="A comprehensive and searchable list of academic references on Simulation and Modeling of Explosion Effects Based on TNT equivalence and explosion analysis." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://virdanurlulu.github.io/" />
+
+    <!-- Styles for the bibliography page -->
+    <style>
+        :root {
+            --ink: #1e2b3b;
+            --blue-itb: #0079c2;
+            --stripe: #eaf3fb;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        
+        /* --- CSS for New Dropdown Menu --- */
+        .dropdown-menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .dropdown-toggle {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--ink);
+            padding: 8px 16px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        }
+        .dropdown-toggle:hover {
+            background-color: #ffffff;
+        }
+        .dropdown-content {
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            right: 0;
+            top: 110%;
+            background-color: #ffffff;
+            min-width: 220px;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        }
+        .dropdown-menu.is-active .dropdown-content {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-content a {
+            color: var(--ink);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            font-weight: 500;
+            white-space: nowrap;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        }
+        .dropdown-content a:hover {
+            background-color: var(--stripe);
+            color: var(--blue-itb);
+        }
+
+        .bibliography-header {
+            background: var(--blue-itb); /* Changed to match footer */
+            padding: 2rem;
+            color: white;
+        }
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header-content h1 {
+            text-align: center;
+            color: #ffffff;
+            margin: 0;
+            border-bottom: 2px solid #ffffff;
+            padding-bottom: 0.5rem;
+            font-size: 2.2rem;
+        }
+        .thesis-subtitle {
+            text-align: center;
+            color: #eaf3fb;
+            margin-top: 0.75rem;
+            margin-bottom: 0.25rem;
+            font-size: 1rem; /* Reduced size */
+            font-weight: normal;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+        .program-subtitle {
+            text-align: center;
+            color: #eaf3fb;
+            margin-top: 0;
+            font-size: 0.9rem; /* Reduced size */
+            font-weight: normal;
+        }
+        main {
+            padding-bottom: 20px; /* Add space above footer */
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        #searchInput {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.75rem;
+            margin-bottom: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        #searchInput:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+        .reference-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        .reference-item:last-child {
+            border-bottom: none;
+        }
+        .reference-number {
+            min-width: 20px;
+        }
+        .reference-item p {
+            margin: 0;
+            flex-grow: 1;
+            word-break: break-word;
+        }
+        .reference-item a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .reference-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .bibliography-header {
+                padding: 1.5rem 1rem;
+            }
+            .container {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+            .header-content h1 {
+                font-size: 1.8rem;
+            }
+            .thesis-subtitle {
+                font-size: 0.85rem; /* Reduced size */
+            }
+            .program-subtitle {
+                font-size: 0.8rem; /* Reduced size */
+            }
+        }
+        @media (max-width: 480px) {
+            .dropdown-menu {
+                top: 12px;
+                right: 12px;
+            }
+            .dropdown-toggle {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+            .bibliography-header {
+                padding: 1.5rem 1rem;
+            }
+            .container {
+                padding: 1rem;
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+            }
+             .header-content h1 {
+                font-size: 1.5rem;
+            }
+            .thesis-subtitle {
+                font-size: 0.75rem; /* Reduced size */
+                line-height: 1.4;
+            }
+            .program-subtitle {
+                font-size: 0.7rem; /* Reduced size */
+            }
+            .reference-item p, .reference-number, .reference-item a {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Back to Top Button Styles */
+        #toTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            background-color: #2c3e50;
+            color: white;
+            cursor: pointer;
+            padding: 0;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transition: background-color 0.3s, opacity 0.3s;
+        }
+        #toTopBtn:hover {
+            background-color: #34495e;
+        }
+
+        /* --- CSS for Footer --- */
+        .app-footer {
+            margin-top: 20px;
+            color: #ffffff;
+            background-color: var(--blue-itb);
+            width: 100%;
+            padding: 24px 16px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .app-footer .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .app-footer .credit {
+            font-weight: 700;
+            color: #e9f5ff;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        }
+        .app-footer .dedication {
+            font-size: 13px;
+            line-height: 1.6;
+            max-width: 960px;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        }
+        .app-footer a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .app-footer a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 720px) {
+            .app-footer .footer-content {
+                gap: 16px;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+
+<div class="dropdown-menu">
+    <button class="dropdown-toggle"><span data-lang-key="menu_button">Menu</span><span class="hamburger-icon">&#9776;</span></button>
+    <div class="dropdown-content">
+        <a href="/" data-lang-key="menu_home">Home</a>
+        <a href="/" data-lang-key="menu_app">Simulation & Modeling Software</a>
+        <a href="/html/flow-process.html" data-lang-key="menu_guide">Workflow Process of Simulation</a>
+<!--           
+        <div class="submenu-container">
+        <a href="#" class="submenu-toggle" data-lang-key="menu_case_study">ACADEMIC CASE STUDY <span class="submenu-arrow">&#9656;</span></a>
+        <div class="submenu-content">
+            <a href="/case-studies/case-study-beirut-explosion-analysis.html"><span class="submenu-arrow">&#9656;</span> 2020 Beirut AN Explosion</a>
+            <a href="/case-studies/case-study-tianjin-explosion-analysis.html"><span class="submenu-arrow">&#9656;</span> 2015 Tianjin AN Explosion</a>
+            <a href="/case-studies/case-study-sanjuanico-explosion-analysis.html"><span class="submenu-arrow">&#9656;</span> 1984 Sanjuanico LPG Explosion</a>
+            <a href="/case-studies/case-study-borgo-italy-explosion-analysis.html"><span class="submenu-arrow">&#9656;</span> 2018 Borgo Italy LPG Explosion</a>
+            <a href="/case-studies/case-study-muskingum-explosion-analysis.html"><span class="submenu-arrow">&#9656;</span> 2007 Muskingum H2 Explosion</a>
+            <a href="/case-studies/case-study-santaclara-explosion-analysis.html"><span class="submenu-arrow">&#9656;</span> 2019 Santaclara H2 Explosion</a>
+        </div>
+        </div> -->
+        
+        <!-- <a href="#" data-lang-key="menu_journal">Journal & Conference (coming soon)</a> -->
+        
+        <a href="/html/bibliography.html" data-lang-key="menu_bibliography">Bibliography</a>
+    </div>
+</div>
+
+<header class="bibliography-header">
+    <div class="header-content">
+        <h1 id="bibliography-heading">Bibliography</h1>
+        <p class="thesis-subtitle">Thesis: Simulation and Modeling of Explosion Effects Based on TNT Equivalence using Javascript</p>
+        <p class="program-subtitle">Master’s Program in Chemical Engineering, Bandung Institute of Technology</p>
+    </div>
+</header>
+
+<main>
+    <section class="container" aria-label="Reference List">
+        <input type="text" id="searchInput" onkeyup="searchReferences()" placeholder="Search references (by author, year, title)...">
+        <div id="references">
+            <!-- Reference list will be dynamically inserted here by JavaScript -->
+        </div>
+    </section>
+</main>
+
+<!-- Back to Top Button -->
+<button id="toTopBtn" title="Go to top">▲</button>
+
+<footer class="app-footer">
+    <div class="footer-content">
+        <div class="credit">
+            Copyright © 2025 by
+            <a href="https://id.linkedin.com/in/virdanurlulu" target="_blank" rel="nofollow">Virda Nur Lu'lu</a>
+        </div>
+        <div class="dedication">
+            This application is dedicated to my parents for their persistent support and patient guidance throughout my JavaScript journey. It is also presented to the academic community at <a href="https://che.itb.ac.id/" target="_blank" rel="nofollow">Institut Teknologi Bandung</a> as a contribution towards inspiring further advancements in JavaScript technology.
+        </div>
+    </div>
+</footer>
+
+<script>
+// Array containing all the reference data
+const references = [
+    { text: "ABC News. (2015). Before and after: Tianjin explosion site in China. <i>ABC News</i>. <a href='https://www.abc.net.au/news/2015-08-14/before-after-tianjin-explosions/6697396' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "AIChE. (2011). Process Safety Beacon: Vapor Cloud Explosions. <i>AIChE</i>. <a href='https://ccps.aiche.org/resources/process-safety-beacon/archives?language=9306&keywords=9586' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Anadolu News, A. (2020). Beirut explosion reportedly caused by fire in explosives warehouse. <a href='https://www.aa.com.tr/es/mundo/explosi%C3%B3n-en-beirut-habr%C3%ADa-sido-causada-por-un-incendio-en-un-almac%C3%A9n-con-explosivos/1931472' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Arturson, G. (1987). The tragedy of San Juanico-the LPG disaster in history. <i>Burns</i>, 13(2), 87-102. <a href='https://www.sciencedirect.com/science/article/abs/pii/0305417987900969' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Bariha, N., Mishra, I. M., & Srivastava, V. C. (2016). Fire and explosion hazard analysis during surface transport of liquefied petroleum gas (LPG): A case study of LPG truck tanker accident in Kannur, Kerala, India. <i>Journal of Loss Prevention in the Process Industries</i>, 40, 449-460. <a href='https://doi.org/10.1016/j.jlp.2016.01.020' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "BBC News. (2015). China blasts: Shipment explodes in Tianjin port. <i>BBC News</i>. <a href='https://www.bbc.com/news/world-asia-china-33896292' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "BBC News. (2020). Beirut explosion: What we know so far. <i>BBC</i>. <a href='https://www.bbc.com/news/world-middle-east-53668493' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Bunn, A., & Hailwood, M. (2016). Fire and Explosion of LPG Tanks at Feyzin, France. <i>Institution of Chemical Engineers (IChemE)</i>. <a href='https://www.icheme.org/media/1278/lpb251_digimag.pdf' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Center for Hydrogen Safety (CHS). (2020). Hydrogen Tank Explosion at Research Facility. <i>American Institute of Chemical Engineers (AIChE)</i>. <a href='https://proceedings.aiche.org/chs/conferences/international-center-hydrogen-safety-conference/2019/proceeding/group/general-submissions' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Chris Coffey. (2021). FLACS-CFD: Consequence Modeling of Dispersion, Fire, and Explosion. <i>Gexcon</i>. <a href='https://www.gexcon.com' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Crowl, D. A., & Louvar, J. F. (2011). <i>Chemical process safety: Fundamentals with applications</i> (3rd ed). Prentice Hall. <a href='https://ptgmedia.pearsoncmg.com/images/9780131382268/samplepages/0131382268.pdf' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Davenport, J. A. (1988). Hazards and protection of pressure storage and transport of LP-gas. <i>Journal of Hazardous Materials</i>, 20, 3-19. <a href='https://doi.org/10.1016/0304-3894(88)87003-1' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Det Norske Veritas (DNV). (n.d.). <i>PHAST Tutorial Manual</i>. Det Norske Veritas (DNV). <a href='https://www.dnv.com/software/services/plant/consequence-analysis-phast/' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Devi, S. (2020). Lebanon faces humanitarian emergency after blast. <i>The Lancet</i>, 396(10249), 456. <a href='https://doi.org/10.1016/s0140-6736(20)31750-5' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Díaz Alonso, F., González Ferradás, E., Francisco Sánchez Pérez, J., Miñana Aznar, A., Ruiz Gimeno, J., & Martínez Alonso, J. (2006). Characteristic overpressure-impulse-distance curves for the detonation of explosives, pyrotechnics or unstable substances. <i>Journal of Loss Prevention in the Process Industries</i>, 19(6), 724-728. <a href='https://doi.org/10.1016/j.jlp.2006.06.001' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "DNV. (n.d.). <i>Pricing and plans Process Hazard Analysis Software Tool (PHAST)</i>. DNV/Veracity Store. Retrieved July 1, 2025. <a href='https://store.veracity.com/phast?context=short&utm_source=dnv.com&utm_medium=referral&utm_campaign=ds_rev_plant_section&utm_content=phast' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "DNV. (2024). <i>PhastM: Fire, Explosion, Dispersion, and Toxic Modeling Software</i>. DNV." },
+    { text: "GexCon. (2010). <i>FLACS: CFD Tool for Explosion, Dispersion, and Ventilation Modeling</i>. GexCon. <a href='https://d3pcsg2wjq9izr.cloudfront.net/files/8363/download/306508/FLACSCFDBrochure.pdf' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Han, S., Baek, S.-H., Jeon, Y., Kim, K., & Park, S. (2025). Integrated experimental-computational approach to estimate TNT equivalence of hydrogen vessel bursts. <i>International Journal of Hydrogen Energy</i>, 146, 149936. <a href='https://doi.org/10.1016/j.ijhydene.2025.06.126' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "I, Y.-P., & Cheng, T.-L. (2021). Application of CFD model in an LPG tank explosion accident. <i>Journal of Loss Prevention in the Process Industries</i>, 69, 104367. <a href='https://doi.org/10.1016/j.jlp.2020.104367' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Jeremić, R., & Bajić, Z. (2006). An approach to determining the TNT equivalent of high explosives. <i>Scientific-Technical Review</i>, LV(1), 58-62. <a href='https://www.researchgate.net/publication/282031002_An_approach_to_determining_the_TNT_equivalent_of_high_explosives' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Kang, K., Wang, X., Wang, J., Shi, W., Sun, Y., & Chen, M. (2022). A Critical Review of a Computational Fluid Dynamics (CFD)-Based Explosion Numerical Analysis of Offshore Facilities. <i>Archives of Computational Methods in Engineering</i>, 29(7), 4851-4870. <a href='https://doi.org/10.1007/s11831-022-09756-1' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Kobayashi, M., & Tamura, M. (2010). <i>Fire and Explosion of LPG Tanks at Feyzin, France</i>. Failure Knowledge Database - University of Tokyo. <a href='https://shippai.org/fkd/en/hfen/HC1300001.pdf' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "LADB Staff. (1996). Explosion at Storage Site Again Brings Attention to Poor PEMEX Safety Record. <i>SourceMex - Latin America Data Base</i>." },
+    { text: "Lees, F. (2012). <i>Lees' Loss Prevention in The Process Industries</i> (Fourth Edition). <a href='https://shop.elsevier.com/books/lees-loss-prevention-in-the-process-industries/lees/978-0-12-397189-0' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Lobato, J., Canizares, P., Rodrigo, M., Saez, C., & Linares, J. (2006). A comparison of hydrogen cloud explosion models and the study of the vulnerability of the damage caused by an explosion of H2H2. <i>International Journal of Hydrogen Energy</i>, 31(12), 1780-1790. <a href='https://doi.org/10.1016/j.ijhydene.2006.01.006' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "NET12 (Director). (2016). <i>Ledakan Gas LPG Hancurkan Puluhan Bangunan di Bekasi - NET12</i> [LPG Gas Explosion Destroys Dozens of Buildings in Bekasi] [Video recording]. NET TV (Indonesia). <a href='https://youtu.be/MtEjTR3iXTw?si=ZbVecrRKljjoL9HF' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Pacific Northwest National Laboratory (PNNL). (2021). <i>Air Products Santa Clara Hydrogen Facility Incident Review Report</i>. U.S. Department of Energy. <a href='https://h2tools.org/sites/default/files/2021-06/AP_Santa_Clara_Incident_Review_Report_Rev1.pdf' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Sarvestani, K., Ahmadi, O., & Alenjareghi, M. J. (2021). LPG Storage Tank Accidents: Initiating Events, Causes, Scenarios, and Consequences. <i>Journal of Failure Analysis and Prevention</i>, 21(4), 1305-1314. <a href='https://doi.org/10.1007/s11668-021-01174-y' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Shaikh, A. (2023). Ixhuatepec: Two weeks before Bhopal-the world's second worst industrial disaster. <i>Institution of Chemical Engineers (IChemE)</i>. <a href='https://www.icheme.org/media/20697/lpb292_pg21.pdf' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "The Korea Herald. (2019). Hydrogen tank explosion kills 2 in Gangneung. <a href='https://www.koreaherald.com/article/2006624' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Török, Z., Ajtai, N., Turcu, A.-T., & Ozunu, A. (2011). Comparative consequence analysis of the BLEVE phenomena in the context on Land Use Planning; Case study: The Feyzin accident. <i>Process Safety and Environmental Protection</i>, 89(1), 1-7. <a href='https://doi.org/10.1016/j.psep.2010.08.003' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "U.S. Chemical Safety and Hazard Investigation Board (CSB). (2006). <i>Combustible Dust Hazard Investigation</i>. U.S. Chemical Safety Board (CSB). <a href='https://www.csb.gov/combustible-dust-hazard-investigation/' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "U.S. Chemical Safety and Hazard Investigation Board (CSB). (2008). <i>Investigation Report: Confined Vapor Cloud Explosion - CAI, Inc. And Arnel Company, Inc., Danvers, Massachusetts</i>. U.S. Chemical Safety Board. <a href='https://www.csb.gov/assets/1/20/csbfinalreportcaiexplosion.pdf?13735' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "U.S. Chemical Safety and Hazard Investigation Board (CSB). (2018). <i>CSB Digest: Herrig Brothers Propane Tank Explosion</i>. U.S. Chemical Safety Board. <a href='https://www.csb.gov/assets/1/17/csb_digest_-_herrig_(ep)1.pdf?16386' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "U.S. Environmental Protection Agency (EPA), & National Oceanic and Atmospheric Administration (NOAA). (2013). <i>ALOHA Technical Documentation</i>. EPA & NOAA." },
+    { text: "Wang, Q., Zhang, L., Wang, L., & Bu, L. (2023). A practical method for predicting and analyzing the consequences of ammonium nitrate explosion accidents adjacent to densely populated areas. <i>Heliyon</i>, 9(5), e15616. <a href='https://doi.org/10.1016/j.heliyon.2023.e15616' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Wikipedia. (2025). <i>Boiling Liquid Expanding Vapor Explosion (BLEVE)</i>. <a href='https://en.wikipedia.org/wiki/Boiling_liquid_expanding_vapor_explosion' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Yang, F., Wang, T., Deng, X., Dang, J., Huang, Z., Hu, S., Li, Y., & Ouyang, M. (2021). Review on hydrogen safety issues: Incident statistics, hydrogen diffusion, and detonation process. <i>International Journal of Hydrogen Energy</i>, 46(61), 31468-31488. <a href='https://doi.org/10.1016/j.ijhydene.2021.07.005' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Yu, G., Duh, Y.-S., Yang, X., Li, Y., Chen, Y., Li, Y., Li, J., Chen, R., Gong, L., Yang, B., & Huang, J. (2022). Holistic Case Study on the Explosion of Ammonium Nitrate in Tianjin Port. <i>Sustainability</i>, 14(6), 3429. <a href='https://doi.org/10.3390/su14063429' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Yu, G., Wang, Y., Zheng, L., Huang, J., Li, J., Gong, L., Chen, R., Li, W., Huang, J., & Duh, Y.-S. (2021). Comprehensive study on the catastrophic explosion of ammonium nitrate stored in the warehouse of Beirut port. <i>Process Safety and Environmental Protection</i>, 152, 201-219. <a href='https://doi.org/10.1016/j.psep.2021.05.030' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Yue, Y., Gai, W., & Boustras, G. (2-23). Exploration of the causes of ammonium nitrate explosions: Statistics and analysis of accidents over the past 100 years. <i>Safety Science</i>, 158, 105954. <a href='https://doi.org/10.1016/j.ssci.2022.105954' target='_blank' rel='nofollow'>[Link]</a>" },
+    { text: "Zaranejad, A., Dept of. Sciences of Occupational Health, Tarbiat Modares University, Tehran, Iran., Ahmadi, O., & Dept. of Sciences of Occupational Health, Tarbiat Modares University, Tehran, Iran. (2015). Fire and explosion risk assessment in a chemical company by the application of DOW fire and explosion index. <i>Journal of Occupational Health and Epidemiology</i>, 4(3), 163-175. <a href='https://doi.org/10.18869/acadpub.johe.4.3.163' target='_blank' rel='nofollow'>[Link]</a>" }
+];
+
+document.addEventListener("DOMContentLoaded", () => {
+    // --- JavaScript for Dropdown Menu ---
+    const dropdown = document.querySelector('.dropdown-menu');
+    if (dropdown) {
+        const dropdownToggle = dropdown.querySelector('.dropdown-toggle');
+        if (dropdownToggle) {
+            dropdownToggle.addEventListener('click', (event) => {
+                event.stopPropagation();
+                dropdown.classList.toggle('is-active');
+            });
+        }
+        document.addEventListener('click', (event) => {
+            if (dropdown.classList.contains('is-active') && !dropdown.contains(event.target)) {
+                dropdown.classList.remove('is-active');
+            }
+        });
+    }
+
+    // --- Other page functionalities ---
+    
+    // Initial display of references
+    const initialReferences = references.map((ref, index) => ({
+        text: ref.text,
+        originalIndex: index
+    }));
+    displayReferences(initialReferences);
+
+    // Back to Top Button Logic
+    const toTopBtn = document.getElementById('toTopBtn');
+    window.addEventListener('scroll', () => {
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            toTopBtn.style.display = 'block';
+        } else {
+            toTopBtn.style.display = 'none';
+        }
+    });
+    toTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+});
+
+
+/**
+ * Renders a list of references into the DOM.
+ * @param {Array<Object>} referencesToDisplay - The array of reference objects to display.
+ */
+function displayReferences(referencesToDisplay) {
+    const referencesContainer = document.getElementById('references');
+    referencesContainer.innerHTML = '';
+    referencesToDisplay.forEach(ref => {
+        const item = document.createElement('div');
+        item.className = 'reference-item';
+        
+        const numberElement = document.createElement('span');
+        numberElement.className = 'reference-number';
+        numberElement.textContent = `${ref.originalIndex + 1}.`;
+
+        const textElement = document.createElement('p');
+        textElement.innerHTML = ref.text;
+        
+        item.appendChild(numberElement);
+        item.appendChild(textElement);
+        referencesContainer.appendChild(item);
+    });
+}
+
+/**
+ * Filters the references based on the search input and updates the display.
+ */
+function searchReferences() {
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toUpperCase();
+    const filteredReferences = references
+        .map((ref, index) => ({ text: ref.text, originalIndex: index }))
+        .filter(ref => ref.text.toUpperCase().includes(filter));
+    displayReferences(filteredReferences);
+}
+</script>
+
+</body>
+</html>
+
